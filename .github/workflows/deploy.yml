@@ -1,8 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (Disabled - use static-demo.yml instead)
 
 on:
-  push:
-    branches: [ main ]
+  # Disabled to prevent conflicts with static-demo.yml
+  # Both workflows cannot deploy to the same GitHub Pages site
   workflow_dispatch:
 
 permissions:
