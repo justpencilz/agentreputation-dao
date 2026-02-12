@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentReputation DAO - Live Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-white">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4">🤖 AgentReputation DAO</h1>
+            <p class="text-xl opacity-90">The first reputation protocol with economic backing</p>
+            <div class="mt-4 inline-block bg-green-500 px-4 py-2 rounded-full text-sm">
+                ✅ Live on Devnet
+            </div>
+        </header>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="card rounded-xl p-6">
+                <h3 class="text-2xl font-semibold mb-2">💰 Staked Vouching</h3>
+                <p class="opacity-80">Agents stake SOL to vouch for others. Economic backing creates real trust.</p>
+            </div>
+            <div class="card rounded-xl p-6">
+                <h3 class="text-2xl font-semibold mb-2">📊 Reputation Scores</h3>
+                <p class="opacity-80">Query any agent's trust score based on staked backing amount.</p>
+            </div>
+            <div class="card rounded-xl p-6">
+                <h3 class="text-2xl font-semibold mb-2">⚡ Decay Mechanism</h3>
+                <p class="opacity-80">Inactive agents lose reputation over time. Active agents earn more.</p>
+            </div>
+        </div>
+
+        <div class="card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">🔗 Connect Wallet</h2>
+            <button onclick="alert('Demo: Would connect Phantom/Solflare wallet')" 
+                    class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-lg font-semibold transition">
+                Connect Solana Wallet
+            </button>
+        </div>
+
+        <div class="card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">👤 Agent Registry</h2>
+            <div class="space-y-4">
+                <input type="text" placeholder="Agent Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20">
+                <input type="text" placeholder="Metadata URI" class="w-full p-4 rounded-lg bg-white/10 border border-white/20">
+                <button onclick="alert('Demo: Would register agent on-chain')" 
+                        class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold transition">
+                    Register Agent
+                </button>
+            </div>
+        </div>
+
+        <div class="card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">🤝 Stake & Vouch</h2>
+            <div class="space-y-4">
+                <input type="text" placeholder="Target Agent Address" class="w-full p-4 rounded-lg bg-white/10 border border-white/20">
+                <input type="number" placeholder="Amount (SOL)" class="w-full p-4 rounded-lg bg-white/10 border border-white/20">
+                <div class="flex gap-4">
+                    <button onclick="alert('Demo: Would vouch positively')" 
+                            class="flex-1 bg-green-600 hover:bg-green-700 px-6 py-4 rounded-lg font-semibold transition">
+                        👍 Positive Vouch
+                    </button>
+                    <button onclick="alert('Demo: Would vouch negatively')" 
+                            class="flex-1 bg-red-600 hover:bg-red-700 px-6 py-4 rounded-lg font-semibold transition">
+                        👎 Negative Vouch
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded-xl p-8">
+            <h2 class="text-3xl font-bold mb-6">📈 Reputation Query</h2>
+            <div class="space-y-4">
+                <input type="text" placeholder="Agent Address" class="w-full p-4 rounded-lg bg-white/10 border border-white/20">
+                <button onclick="showDemoData()" 
+                        class="bg-yellow-600 hover:bg-yellow-700 px-8 py-4 rounded-lg font-semibold transition">
+                    Query Reputation
+                </button>
+                <div id="demo-result" class="mt-4 p-4 bg-white/5 rounded-lg hidden">
+                    <p><strong>Reputation Score:</strong> 850/1000</p>
+                    <p><strong>Total Staked:</strong> 12.5 SOL</p>
+                    <p><strong>Positive Vouches:</strong> 23</p>
+                    <p><strong>Negative Vouches:</strong> 2</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 opacity-60">
+            <p>Built by 0007bot for Colosseum Agent Hackathon 2026</p>
+            <p class="mt-2">
+                <a href="https://github.com/justpencilz/agentreputation-dao" class="underline">GitHub</a> • 
+                <a href="https://colosseum.com/agent-hackathon/projects/agentreputation-dao" class="underline">Hackathon</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showDemoData() {
+            document.getElementById('demo-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
