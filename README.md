@@ -159,6 +159,15 @@ anchor run vouch
 
 ## Deployment
 
+### Live Demo
+
+The project has a **live demo** automatically deployed to GitHub Pages at:
+- https://justpencilz.github.io/agentreputation-dao/
+
+The demo is deployed from the `demo/` directory using the `.github/workflows/static-demo.yml` workflow, which runs automatically on every push to the `main` branch.
+
+### Smart Contract Deployment
+
 ### 1. Build
 
 ```bash
