@@ -317,8 +317,21 @@ h1 {
     </div>
     <p style="font-size:9px; color:#00ff41; margin:5px 0; background:rgba(0,255,65,0.1); padding:5px; border-radius:3px;">💡 MIN: 0.1 SOL | MAX: 5 SOL | Voluntary high stakes = HIGHER TRUST</p>
     
-    <label style="font-size:11px;">VALUE (SOL)</label>
-    <input type="number" id="value" value="10" oninput="calc()">
+    <label style="font-size:11px;">STAKE AMOUNT (SOL)</label>
+    <div style="display:flex; flex-wrap:wrap; gap:5px; margin:8px 0;">
+      <button onclick="adjustStake(-0.1)" style="padding:8px 12px; font-size:14px; background:#ff0040; border:none; color:#fff; cursor:pointer; font-weight:bold;">-</button>
+      <button onclick="setStake(0.1)" id="btn-stake-01" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.1</button>
+      <button onclick="setStake(0.25)" id="btn-stake-025" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.25</button>
+      <button onclick="setStake(0.5)" id="btn-stake-05" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.5</button>
+      <button onclick="adjustStake(0.1)" style="padding:8px 12px; font-size:14px; background:#00ff41; border:none; color:#000; cursor:pointer; font-weight:bold;">+</button>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:5px; margin:5px 0;">
+      <button onclick="setStake(1)" id="btn-stake-1" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">1 SOL</button>
+      <button onclick="setStake(2.5)" id="btn-stake-25" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">2.5 SOL</button>
+      <button onclick="setStake(3)" id="btn-stake-3" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">3 SOL</button>
+      <button onclick="setStake(5)" id="btn-stake-5" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(255,215,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5 MAX</button>
+    </div>
+    <div style="text-align:center; font-size:18px; color:#00ff41; margin:10px 0; font-weight:bold;" id="current-stake-display">0.1 SOL</div>
     
     <label style="font-size:11px;">YOUR REP (0-1000)</label>
     <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()">
@@ -352,6 +365,7 @@ h1 {
 
 <script>
 var currentTask = 1;
+var currentStake = 0.1;
 
 function setTask(val) {
   currentTask = val;
@@ -373,9 +387,42 @@ function setTask(val) {
   calc();
 }
 
+function setStake(val) {
+  currentStake = Math.min(5, Math.max(0.1, val));
+  updateStakeDisplay();
+  
+  // Update button styles
+  const values = [0.1, 0.25, 0.5, 1, 2.5, 3, 5];
+  values.forEach(v => {
+    const btn = document.getElementById('btn-stake-' + v.toString().replace('.', ''));
+    if (btn) {
+      if (Math.abs(v - currentStake) < 0.01) {
+        btn.style.background = '#00ff41';
+        btn.style.color = '#000';
+        btn.style.fontWeight = 'bold';
+      } else {
+        btn.style.background = v === 5 ? 'rgba(255,215,0,0.2)' : 'rgba(0,255,65,0.1)';
+        btn.style.color = v === 5 ? '#ffd700' : '#00ff41';
+        btn.style.fontWeight = 'normal';
+      }
+    }
+  });
+  calc();
+}
+
+function adjustStake(delta) {
+  currentStake = Math.min(5, Math.max(0.1, currentStake + delta));
+  updateStakeDisplay();
+  calc();
+}
+
+function updateStakeDisplay() {
+  const display = document.getElementById('current-stake-display');
+  if (display) display.textContent = currentStake.toFixed(2) + ' SOL';
+}
+
 // Calculator - MIN 0.1 SOL, MAX 5 SOL
 function calc() {
-  var value = parseFloat(document.getElementById('value').value) || 10;
   var rep = parseInt(document.getElementById('rep').value);
   
   var base = 0.1; // MINIMUM 0.1 SOL
@@ -388,8 +435,9 @@ function calc() {
   document.getElementById('breakdown').textContent = 'Min: 0.1 SOL | Task: ' + currentTask + 'x | Discount: ' + (discount*100).toFixed(0) + '% | Max: 5 SOL';
 }
 
-// Initialize with first button selected
+// Initialize
 setTask(1);
+setStake(0.1);
 
 // Live Agents with updating data
 const liveAgents = [
