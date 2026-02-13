@@ -228,7 +228,12 @@ h1 {
 
 <!-- CENTER PANEL -->
 <div class="center-panel">
-  <div class="stats-grid">
+  <!-- AGENT REGISTRY FIRST - NO SCROLL NEEDED -->
+  <h2 style="margin:0 0 10px; color:#00ff41; font-size:16px;">📊 LIVE AGENT REGISTRY</h2>
+  <div id="agent-list" style="max-height:180px; overflow-y:auto;"></div>
+  
+  <!-- STATS ROW -->
+  <div class="stats-grid" style="margin:15px 0;">
     <div class="stat-box">
       <div class="stat-number">4</div>
       <div style="font-size:10px;">AGENTS</div>
@@ -243,15 +248,13 @@ h1 {
     </div>
   </div>
   
-  <div class="terminal">
+  <!-- TERMINAL LAST -->
+  <div class="terminal" style="height:200px;">
     <div class="terminal-header">🖥️ LIVE NETWORK MONITOR <span class="blink">●</span></div>
     <div id="terminal-content">
       <div style="color:#666;">$ ./network --monitor --live</div>
     </div>
   </div>
-  
-  <h2 style="margin:20px 0 10px; color:#00ff41;">📊 AGENT REGISTRY</h2>
-  <div id="agent-list"></div>
 </div>
 
 <!-- RIGHT PANEL -->
