@@ -28,40 +28,32 @@ html, body {
 }
 
 .crisis-box {
-  background: linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, rgba(100, 0, 0, 0.2) 100%);
-  border: 2px solid #ff3366;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
+  background: rgba(255, 50, 80, 0.12);
+  border-left: 4px solid #ff3366;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 .crisis-box h2 { 
   color: #ff3366; 
-  margin-bottom: 15px; 
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 1px solid #ff3366;
-  padding-bottom: 8px;
+  margin-bottom: 8px; 
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .solution-box {
-  background: linear-gradient(135deg, rgba(0, 204, 255, 0.15) 0%, rgba(0, 100, 150, 0.2) 100%);
-  border: 2px solid #00ccff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 204, 255, 0.2);
+  background: rgba(0, 200, 255, 0.12);
+  border-left: 4px solid #00ccff;
+  padding: 12px;
+  border-radius: 4px;
 }
 
 .solution-box h2 { 
   color: #00ccff; 
-  margin-bottom: 15px; 
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 1px solid #00ccff;
-  padding-bottom: 8px;
+  margin-bottom: 8px; 
+  font-size: 14px;
+  font-weight: bold;
 }
 
 /* CENTER PANEL - Live Data */
@@ -136,11 +128,11 @@ input, select {
 }
 
 .stake-result {
-  font-size: 28px;
+  font-size: 24px;
   text-align: center;
   color: #00ff41;
-  margin: 15px 0;
-  text-shadow: 0 0 10px #00ff41;
+  margin: 10px 0;
+  font-weight: bold;
 }
 
 .stats-grid {
@@ -151,24 +143,16 @@ input, select {
 }
 
 .stat-box {
-  background: rgba(0, 255, 65, 0.1);
+  background: rgba(0, 40, 20, 0.8);
   border: 1px solid #00ff41;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
 }
 
 .stat-number {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: #00ff41;
-}
-
-h1 {
-  color: #00ff41;
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
-  text-shadow: 0 0 20px #00ff41;
 }
 
 .blink {
@@ -180,29 +164,16 @@ h1 {
   51%, 100% { opacity: 0; }
 }
 
-@keyframes glow {
-  0%, 100% { text-shadow: 0 0 20px #00ff41, 0 0 40px #00ff41, 0 0 60px #00ff41; }
-  50% { text-shadow: 0 0 30px #00ff41, 0 0 50px #00ff41, 0 0 70px #00ff41; }
-}
-
-@keyframes titlePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-}
-
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
-  50% { opacity: 0.5; box-shadow: 0 0 15px currentColor; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 h1 { 
-  animation: glow 2s infinite, titlePulse 3s infinite;
-  background: linear-gradient(135deg, #fff 0%, #00ff41 50%, #00ccff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 32px;
+  color: #00ff41;
+  font-size: 28px;
   letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0,255,65,0.5);
 }
 
 .log-entry { margin: 3px 0; }
@@ -216,11 +187,11 @@ h1 {
 
 <!-- LEFT PANEL -->
 <div class="left-panel">
-  <div style="text-align:center; margin-bottom:10px; border:2px solid #00ff41; padding:10px; background:linear-gradient(180deg, rgba(0,255,65,0.1) 0%, rgba(0,0,0,0.8) 100%); box-shadow:0 0 20px rgba(0,255,65,0.3); flex-shrink:0;">
-    <div style="font-size:8px; color:#00ff41; margin-bottom:4px; letter-spacing:2px; font-weight:bold;">◆ COLOSSEUM 2026 ◆</div>
-    <h1 style="margin:5px 0; font-weight:900; font-size:22px;">AGENT REP DAO</h1>
-    <div style="font-size:10px; color:#00ff41; font-weight:bold; margin:5px 0; letter-spacing:1px;">⚡ ECONOMIC-BACKED TRUST ⚡</div>
-    <div style="font-size:8px; color:#666; margin-top:5px;">◆ 100% AI BUILT ◆</div>
+  <div style="text-align:center; margin-bottom:10px; border:2px solid #00ff41; padding:12px; background:#0a1a0a; flex-shrink:0;">
+    <div style="font-size:9px; color:#00ff41; margin-bottom:4px; letter-spacing:3px; font-weight:bold;">COLOSSEUM 2026</div>
+    <h1 style="margin:6px 0; font-weight:800; font-size:24px; color:#00ff41;">AGENT REP DAO</h1>
+    <div style="font-size:11px; color:#00ccff; font-weight:bold; margin:6px 0;">ECONOMIC-BACKED TRUST</div>
+    <div style="font-size:8px; color:#888; margin-top:4px;">100% AI BUILT</div>
   </div>
   
   <div class="crisis-box" style="padding:10px; margin-bottom:8px;">
