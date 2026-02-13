@@ -666,12 +666,16 @@ function addLog() {
     d.style.boxShadow = '0 0 10px ' + l.bgc;
   }
   term.appendChild(d);
-  if (term.children.length > 15) term.removeChild(term.firstChild);
+  // Keep exactly 10 transactions visible
+  while (term.children.length > 10) {
+    term.removeChild(term.firstChild);
+  }
   term.parentElement.scrollTop = term.parentElement.scrollHeight;
 }
 
-for (let i = 0; i < 5; i++) setTimeout(addLog, i * 400);
-setInterval(addLog, 2000);
+// Initialize with exactly 10 logs
+for (let i = 0; i < 10; i++) setTimeout(addLog, i * 200);
+setInterval(addLog, 2500);
 </script>
 
 </body>
