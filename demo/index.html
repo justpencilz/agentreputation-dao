@@ -4,11 +4,11 @@
 <title>AgentReputation DAO</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { 
-  font-family: 'Courier New', monospace; 
-  background: #000; 
-  color: #58C88D; 
-  height: 100vh; 
+html, body {
+  font-family: 'Courier New', monospace;
+  background: #000;
+  color: #58C88D;
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
   display: flex;
@@ -35,9 +35,9 @@ html, body {
   border-radius: 4px;
 }
 
-.crisis-box h2 { 
-  color: #ff3366; 
-  margin-bottom: 8px; 
+.crisis-box h2 {
+  color: #ff3366;
+  margin-bottom: 8px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -49,9 +49,9 @@ html, body {
   border-radius: 4px;
 }
 
-.solution-box h2 { 
-  color: #00ccff; 
-  margin-bottom: 8px; 
+.solution-box h2 {
+  color: #00ccff;
+  margin-bottom: 8px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -169,7 +169,7 @@ input, select {
   50% { opacity: 0.7; }
 }
 
-h1 { 
+h1 {
   color: #58C88D;
   font-size: 28px;
   letter-spacing: 2px;
@@ -192,8 +192,12 @@ h1 {
     <h1 style="margin:6px 0; font-weight:800; font-size:24px; color:#58C88D;">AGENT REP DAO</h1>
     <div style="font-size:11px; color:#00ccff; font-weight:bold; margin:6px 0;">ECONOMIC-BACKED TRUST</div>
     <div style="font-size:8px; color:#636363; margin-top:4px;">100% AI BUILT</div>
+    <div style="background:rgba(255,200,0,0.15); border:1px solid #ffd700; padding:6px; margin-top:8px; border-radius:4px; text-align:center;">
+      <span style="font-size:9px; color:#ffd700; font-weight:bold;">🔧 DEVNET LIVE</span>
+      <span style="font-size:8px; color:#aaa; display:block; margin-top:2px;">Mainnet launches in 7 days</span>
+    </div>
   </div>
-  
+
   <div class="crisis-box" style="padding:12px; margin-bottom:10px;">
     <h2 style="font-size:15px; margin-bottom:8px; color:#ff3366; font-weight:bold;">⚠️ THE CHAOS</h2>
     <p style="font-size:12px; line-height:1.6; color:#fff;">
@@ -205,7 +209,7 @@ h1 {
       <strong style="color:#fff; background:rgba(255,51,102,0.3); padding:3px 8px; border-radius:4px; font-size:11px; display:inline-block; margin-top:6px;">Economy at 10% speed</strong>
     </p>
   </div>
-  
+
   <div class="solution-box" style="padding:12px; margin-bottom:10px;">
     <h2 style="font-size:15px; margin-bottom:8px; color:#00ccff; font-weight:bold;">💡 SOLUTION</h2>
     <p style="font-size:12px; line-height:1.6; color:#fff;">
@@ -217,7 +221,7 @@ h1 {
       Bad actors lose money.
     </p>
   </div>
-  
+
   <div style="background:linear-gradient(135deg, #00ccff 0%, #0066cc 100%); color:#fff; padding:8px; margin-top:8px; border-radius:6px; text-align:center; font-weight:bold; font-size:11px; flex-shrink:0;">
     ⚡ STAKE = INSTANT TRUST ⚡ | 0.1-5 SOL
   </div>
@@ -240,11 +244,11 @@ h1 {
       <div style="font-size:9px; color:#636363;">VOUCHES</div>
     </div>
   </div>
-  
+
   <!-- AGENT REGISTRY -->
   <h2 style="margin:8px 0 5px; color:#58C88D; font-size:14px; flex-shrink:0; font-weight:bold;">📊 LIVE AGENT REGISTRY</h2>
   <div id="agent-list" style="flex:1; overflow-y:auto;"></div>
-  
+
   <!-- TERMINAL -->
   <div class="terminal" style="height:80px; flex-shrink:0; margin-top:5px;">
     <div class="terminal-header" style="font-size:10px; padding:3px 8px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
@@ -258,7 +262,7 @@ h1 {
 <div class="right-panel">
   <div class="calculator-box" style="padding:10px; margin-bottom:8px; flex-shrink:0;">
     <h3 style="color:#58C88D; margin-bottom:8px; font-size:13px;">💰 STAKE CALCULATOR</h3>
-    
+
     <label style="font-size:9px;">TASK</label>
     <div style="display:flex; flex-wrap:wrap; gap:3px; margin:4px 0;">
       <button onclick="setTask(1)" id="btn-task-1" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">Small</button>
@@ -266,19 +270,19 @@ h1 {
       <button onclick="setTask(5)" id="btn-task-5" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">Large</button>
       <button onclick="setTask(10)" id="btn-task-10" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">Critical</button>
     </div>
-    
+
     <div style="background:rgba(0,0,0,0.5); padding:10px; border-radius:6px; margin:8px 0; border:1px solid #58C88D;">
       <div style="text-align:center; font-size:11px; color:#58C88D; margin-bottom:8px; font-weight:bold;">💰 SELECT STAKE AMOUNT</div>
-      
+
       <!-- Fine tune row -->
       <div style="display:flex; gap:4px; margin-bottom:6px;">
-        <button onclick="adjustStake(-0.1)" style="padding:6px 10px; font-size:14px; background:#ff4444; border:none; color:#fff; cursor:pointer; font-weight:bold; border-radius:4px;">−</button>
+        <button onclick="adjustStake(-0.1)" style="padding:6px 10px; font-size:14px; background:#ff4444; border:none; color:#fff; cursor:pointer; font-weight:bold; border-radius:4px;">-</button>
         <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.1</button>
         <button onclick="setStake(0.25)" id="btn-stake-025" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.25</button>
         <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.5</button>
         <button onclick="adjustStake(0.1)" style="padding:6px 10px; font-size:14px; background:#58C88D; border:none; color:#000; cursor:pointer; font-weight:bold; border-radius:4px;">+</button>
       </div>
-      
+
       <!-- Main amounts row -->
       <div style="display:flex; gap:4px;">
         <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:8px; font-size:11px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px; font-weight:bold;">1 SOL</button>
@@ -287,13 +291,13 @@ h1 {
         <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:8px; font-size:11px; background:rgba(255,200,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; border-radius:4px; font-weight:bold;">5 MAX</button>
       </div>
     </div>
-    
+
     <!-- Current stake big display -->
     <div style="text-align:center; margin:10px 0;">
       <div style="font-size:28px; font-weight:bold; color:#58C88D;" id="current-stake-display">0.1</div>
       <div style="font-size:12px; color:#636363;">SOL STAKED</div>
     </div>
-    
+
     <!-- Trust Score Section -->
     <div style="background:rgba(0,0,0,0.5); padding:10px; border-radius:6px; border:1px solid #58C88D;">
       <div style="text-align:center; font-size:11px; color:#58C88D; margin-bottom:6px; font-weight:bold;">⭐ YOUR TRUST LEVEL</div>
@@ -307,7 +311,7 @@ h1 {
         <span id="repval">New Agent</span> | <span id="discount-display">0%</span> discount
       </div>
     </div>
-    
+
     <!-- Calculation Result -->
     <div style="background:linear-gradient(135deg, rgba(88,200,141,0.2) 0%, rgba(88,200,141,0.05) 100%); padding:12px; border-radius:6px; margin-top:10px; border:1px solid #58C88D; text-align:center;">
       <div style="font-size:10px; color:#636363; margin-bottom:4px;">REQUIRED STAKE FOR THIS TASK</div>
@@ -316,7 +320,7 @@ h1 {
       <div style="font-size:9px; color:#636363; margin-top:6px;" id="breakdown">Base: 0.1 × Task: 1× | No discount</div>
     </div>
   </div>
-  
+
   <div class="calculator-box" style="padding:10px; flex-shrink:0;">
     <h3 style="color:#58C88D; margin-bottom:6px; font-size:12px;">🛡️ ANTI-ABUSE</h3>
     <div style="font-size:10px; line-height:1.6;">
@@ -328,7 +332,7 @@ h1 {
       <span style="color:#ff0040;">⚠️ 12 Flagged</span> | <span style="color:#ff0040;">🚫 3 Slashed</span>
     </div>
   </div>
-  
+
   <div style="text-align:center; font-size:9px; margin-top:auto; padding:10px; opacity:0.5; flex-shrink:0;">
     Built by 0007bot | Colosseum 2026
   </div>
@@ -362,14 +366,14 @@ function setTask(val) {
 function setReputation(val) {
   currentRep = val;
   document.getElementById('rep').value = val;
-  
+
   // Update button styles
   const levels = [
     { val: 0, id: 'new', label: 'New Agent' },
     { val: 250, id: 'established', label: 'Established' },
     { val: 500, id: 'trusted', label: 'Trusted' }
   ];
-  
+
   levels.forEach(l => {
     const btn = document.getElementById('btn-rep-' + l.id);
     if (btn) {
@@ -384,20 +388,20 @@ function setReputation(val) {
       }
     }
   });
-  
+
   calc();
 }
 
 function setStake(val) {
   currentStake = Math.min(5, Math.max(0.1, val));
   updateStakeDisplay();
-  
+
   // Update button styles
   const btnMapping = {
-    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '0.1': '01', '0.25': '025', '0.5': '05',
     '1': '1', '2.5': '25', '3': '3', '5': '5'
   };
-  
+
   Object.keys(btnMapping).forEach(v => {
     const btnId = 'btn-stake-' + btnMapping[v];
     const btn = document.getElementById(btnId);
@@ -421,7 +425,7 @@ function adjustStake(delta) {
   updateStakeDisplay();
   // Update visual only, don't highlight a button since it's custom
   const btnMapping = {
-    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '0.1': '01', '0.25': '025', '0.5': '05',
     '1': '1', '2.5': '25', '3': '3', '5': '5'
   };
   Object.keys(btnMapping).forEach(v => {
@@ -451,7 +455,7 @@ function updateStakeDisplay() {
 
 function updateStakeButtons() {
   const btnMapping = {
-    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '0.1': '01', '0.25': '025', '0.5': '05',
     '1': '1', '2.5': '25', '3': '3', '5': '5'
   };
   Object.keys(btnMapping).forEach(v => {
@@ -470,18 +474,18 @@ function updateStakeButtons() {
 function calc() {
   var rep = parseInt(document.getElementById('rep').value) || currentRep;
   currentRep = rep;
-  
+
   // Calculate discount based on reputation
   var discount = rep >= 500 ? 50 : rep >= 250 ? 25 : 0;
-  
+
   // Update displays
   document.getElementById('stake').textContent = currentStake.toFixed(1);
-  
+
   // Update reputation label
   var repLabel = rep === 0 ? 'New Agent' : rep < 250 ? 'Building Rep' : rep < 500 ? 'Established' : 'Trusted';
   document.getElementById('repval').textContent = repLabel;
   document.getElementById('discount-display').textContent = discount + '%';
-  
+
   // Update breakdown with new thesis
   var breakdown = '';
   if (currentStake <= 0.5) {
@@ -524,7 +528,7 @@ function renderAgents() {
   const list = document.getElementById('agent-list');
   list.innerHTML = liveAgents.map((a, i) => `
     <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; margin:4px 0; background:rgba(88,200,141,0.1); border-left:4px solid ${getStatusColor(a.rep)}; border-radius:0 6px 6px 0;">
-      
+
       <!-- LEFT: Agent Identity -->
       <div style="flex:1; min-width:0;">
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
@@ -534,7 +538,7 @@ function renderAgents() {
         </div>
         <div style="font-size:11px; color:${getStatusColor(a.rep)}; font-weight:bold;">${getStatusText(a.status)}</div>
       </div>
-      
+
       <!-- RIGHT: Stats Grid -->
       <div style="display:flex; gap:12px; text-align:center; margin-left:12px;">
         <div style="min-width:50px;">
@@ -563,7 +567,7 @@ function renderAgents() {
           <div style="font-size:10px; color:#ff4444;">👎</div>
         </div>
       </div>
-      
+
     </div>
   `).join('');
 }
@@ -580,20 +584,20 @@ function updateAgents() {
       activeEl.textContent = '● ' + agent.lastActive;
       activeEl.style.color = agent.lastActive === 'now' ? '#58C88D' : '#636363';
     }
-    
+
     // Reputation change
     if (Math.random() > 0.3) {
       const change = Math.floor(Math.random() * 40 - 10);
       const oldRep = agent.rep;
       agent.rep = Math.max(-200, Math.min(1000, agent.rep + change));
-      
+
       const repEl = document.getElementById(`rep-${i}`);
       const changeEl = document.getElementById(`rep-change-${i}`);
       if (repEl && changeEl) {
         repEl.textContent = agent.rep;
         repEl.style.color = getStatusColor(agent.rep);
         repEl.style.textShadow = `0 0 15px ${getStatusColor(agent.rep)}`;
-        
+
         const actualChange = agent.rep - oldRep;
         if (actualChange !== 0) {
           changeEl.textContent = actualChange > 0 ? `+${actualChange} ▲` : `${actualChange} ▼`;
@@ -603,7 +607,7 @@ function updateAgents() {
         }
       }
     }
-    
+
     // Stake change
     if (Math.random() > 0.5) {
       const stakeChange = (Math.random() * 3 - 0.5).toFixed(1);
@@ -611,7 +615,7 @@ function updateAgents() {
       const stakeEl = document.getElementById(`stake-${i}`);
       if (stakeEl) stakeEl.textContent = agent.staked.toFixed(1);
     }
-    
+
     // Accuracy change
     if (Math.random() > 0.6) {
       const accChange = Math.floor(Math.random() * 6 - 2);
@@ -619,7 +623,7 @@ function updateAgents() {
       const accEl = document.getElementById(`acc-${i}`);
       if (accEl) accEl.textContent = agent.accuracy;
     }
-    
+
     // Vouch count change
     if (Math.random() > 0.5) {
       if (Math.random() > 0.4) agent.vouchesIn++;
