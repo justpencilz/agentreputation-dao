@@ -246,13 +246,13 @@ h1 {
   </div>
 
   <!-- AGENT REGISTRY -->
-  <h2 style="margin:8px 0 5px; color:#58C88D; font-size:14px; flex-shrink:0; font-weight:bold;">📊 LIVE AGENT REGISTRY</h2>
-  <div id="agent-list" style="flex:1; overflow-y:auto;"></div>
+  <h2 style="margin:5px 0 3px; color:#58C88D; font-size:13px; flex-shrink:0; font-weight:bold;">📊 LIVE AGENT REGISTRY</h2>
+  <div id="agent-list" style="flex:0 0 auto;"></div>
 
-  <!-- TERMINAL - Extended to show more transactions -->
-  <div class="terminal" style="height:130px; flex-shrink:0; margin-top:8px;">
-    <div class="terminal-header" style="font-size:12px; padding:5px 10px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
-    <div id="terminal-content" style="font-size:12px; line-height:1.4;">
+  <!-- TERMINAL - Extended to show 10-15 transactions -->
+  <div class="terminal" style="height:180px; flex-shrink:0; margin-top:5px;">
+    <div class="terminal-header" style="font-size:11px; padding:4px 10px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
+    <div id="terminal-content" style="font-size:11px; line-height:1.35;">
       <div style="color:#636363;">$ ./monitor --live</div>
     </div>
   </div>
@@ -527,44 +527,35 @@ function getStatusText(status) {
 function renderAgents() {
   const list = document.getElementById('agent-list');
   list.innerHTML = liveAgents.map((a, i) => `
-    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; margin:4px 0; background:rgba(88,200,141,0.1); border-left:4px solid ${getStatusColor(a.rep)}; border-radius:0 6px 6px 0;">
-
+    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; margin:3px 0; background:rgba(88,200,141,0.1); border-left:4px solid ${getStatusColor(a.rep)}; border-radius:0 6px 6px 0; height:48px;">
+      
       <!-- LEFT: Agent Identity -->
       <div style="flex:1; min-width:0;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-          <div style="width:12px; height:12px; background:${getStatusColor(a.rep)}; border-radius:50%; flex-shrink:0; box-shadow:0 0 8px ${getStatusColor(a.rep)};"></div>
-          <strong style="font-size:14px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.name}</strong>
-          <span style="font-size:10px; color:#636363; font-family:'Courier New',monospace;">${a.address}</span>
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+          <div style="width:10px; height:10px; background:${getStatusColor(a.rep)}; border-radius:50%; flex-shrink:0; box-shadow:0 0 6px ${getStatusColor(a.rep)};"></div>
+          <strong style="font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.name}</strong>
+          <span style="font-size:9px; color:#636363; font-family:'Courier New',monospace;">${a.address}</span>
         </div>
-        <div style="font-size:11px; color:${getStatusColor(a.rep)}; font-weight:bold;">${getStatusText(a.status)}</div>
+        <div style="font-size:10px; color:${getStatusColor(a.rep)}; font-weight:bold;">${getStatusText(a.status)}</div>
       </div>
 
       <!-- RIGHT: Stats Grid -->
-      <div style="display:flex; gap:12px; text-align:center; margin-left:12px;">
-        <div style="min-width:50px;">
-          <div style="font-size:18px; font-weight:bold; color:${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
-          <div style="font-size:9px; color:#636363;">REP</div>
-          <div id="rep-change-${i}" style="font-size:10px; height:14px; font-weight:bold;"></div>
+      <div style="display:flex; gap:10px; text-align:center; margin-left:10px;">
+        <div style="min-width:42px;">
+          <div style="font-size:16px; font-weight:bold; color:${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
+          <div style="font-size:8px; color:#636363;">REP</div>
         </div>
-        <div style="min-width:50px;">
-          <div style="font-size:18px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
-          <div style="font-size:9px; color:#636363;">SOL</div>
-          <div style="font-size:10px; color:#00ccff;">💰</div>
+        <div style="min-width:42px;">
+          <div style="font-size:16px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
+          <div style="font-size:8px; color:#636363;">SOL</div>
         </div>
-        <div style="min-width:45px;">
-          <div style="font-size:18px; font-weight:bold; color:#ffd700;" id="acc-${i}">${a.accuracy}</div>
-          <div style="font-size:9px; color:#636363;">ACC%</div>
-          <div style="font-size:10px; color:#ffd700;">🎯</div>
+        <div style="min-width:38px;">
+          <div style="font-size:16px; font-weight:bold; color:#58C88D;" id="vin-${i}">${a.vouchesIn}</div>
+          <div style="font-size:8px; color:#636363;">IN</div>
         </div>
-        <div style="min-width:40px;">
-          <div style="font-size:18px; font-weight:bold; color:#58C88D;" id="vin-${i}">${a.vouchesIn}</div>
-          <div style="font-size:9px; color:#636363;">IN</div>
-          <div style="font-size:10px; color:#58C88D;">👍</div>
-        </div>
-        <div style="min-width:40px;">
-          <div style="font-size:18px; font-weight:bold; color:#ff4444;" id="vout-${i}">${a.vouchesOut}</div>
-          <div style="font-size:9px; color:#636363;">OUT</div>
-          <div style="font-size:10px; color:#ff4444;">👎</div>
+        <div style="min-width:38px;">
+          <div style="font-size:16px; font-weight:bold; color:#ff4444;" id="vout-${i}">${a.vouchesOut}</div>
+          <div style="font-size:8px; color:#636363;">OUT</div>
         </div>
       </div>
 
