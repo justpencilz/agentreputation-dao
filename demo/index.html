@@ -310,11 +310,13 @@ renderAgents();
 // Terminal Simulation
 const term = document.getElementById('terminal-content');
 const logs = [
-  { c: 'log-reg', t: () => `[${time()}] ✅ Agent_${rand()} registered | Rep: 50` },
-  { c: 'log-vouch', t: () => `[${time()}] 👍 Vouch: ${rand()} → ${rand()} | ${(Math.random()*2).toFixed(1)} SOL` },
-  { c: 'log-vouch', t: () => `[${time()}] 👎 Negative vouch from ${rand()} | Risk: ${(Math.random()*0.5).toFixed(2)} SOL` },
-  { c: 'log-alert', t: () => `[${time()}] ⚠️ Pattern: Rapid vouching from 7xKX...` },
-  { c: 'log-slash', t: () => `[${time()}] 🚫 SLASHED: ${rand()} | Lost: ${(Math.random()*5+0.5).toFixed(2)} SOL` }
+  { c: 'log-reg', t: () => `[${time()}] ✅ Agent_${rand()} registered | Rep: 50`, bg: false },
+  { c: 'log-vouch', t: () => `[${time()}] 👍 Vouch: ${rand()} → ${rand()} | ${(Math.random()*2).toFixed(1)} SOL`, bg: false },
+  { c: 'log-vouch', t: () => `[${time()}] 👎 Negative vouch from ${rand()} | Risk: ${(Math.random()*0.5).toFixed(2)} SOL`, bg: false },
+  { c: 'log-alert', t: () => `[${time()}] ⚠️ Pattern: Rapid vouching from 7xKX...`, bg: true, bgc: '#ffaa00', col: '#000' },
+  { c: 'log-slash', t: () => `[${time()}] 🚫 SLASHED: ${rand()} | Lost: ${(Math.random()*5+0.5).toFixed(2)} SOL`, bg: true, bgc: '#ff0040', col: '#fff' },
+  { c: 'log-rep', t: () => `[${time()}] 📈 REP CHANGE: ${rand()} | +${Math.floor(Math.random()*200)} points`, bg: true, bgc: '#00ff41', col: '#000' },
+  { c: 'log-stake', t: () => `[${time()}] 💰 MEGA STAKE: ${rand()} | ${(Math.random()*50+10).toFixed(1)} SOL`, bg: true, bgc: '#00ccff', col: '#000' }
 ];
 
 function time() { return new Date().toLocaleTimeString('en-US', {hour12:false}); }
@@ -325,13 +327,20 @@ function addLog() {
   const d = document.createElement('div');
   d.className = 'log-entry ' + l.c;
   d.textContent = l.t();
+  if (l.bg) {
+    d.style.background = l.bgc;
+    d.style.color = l.col;
+    d.style.padding = '2px 5px';
+    d.style.fontWeight = 'bold';
+    d.style.boxShadow = '0 0 10px ' + l.bgc;
+  }
   term.appendChild(d);
   if (term.children.length > 15) term.removeChild(term.firstChild);
   term.parentElement.scrollTop = term.parentElement.scrollHeight;
 }
 
 for (let i = 0; i < 5; i++) setTimeout(addLog, i * 400);
-setInterval(addLog, 2500);
+setInterval(addLog, 2000);
 </script>
 
 </body>
