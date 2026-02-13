@@ -248,6 +248,17 @@ h1 {
   <!-- AGENT REGISTRY -->
   <h2 style="margin:5px 0 3px; color:#58C88D; font-size:13px; flex-shrink:0; font-weight:bold;">📊 LIVE AGENT REGISTRY</h2>
   <div id="agent-list" style="flex:0 0 auto;"></div>
+  
+  <!-- VERIFICATION ALGORITHM LEGEND -->
+  <div style="background:rgba(0,0,0,0.6); border:1px solid #58C88D; padding:6px; margin:3px 0; border-radius:4px; font-size:8px; flex-shrink:0;">
+    <div style="color:#58C88D; font-weight:bold; margin-bottom:3px;">📋 VERIFICATION ALGORITHM</div>
+    <div style="color:#aaa; line-height:1.3;">
+      <span style="color:#58C88D;">✅ VERIFIED (700+):</span> High rep + stake + accuracy | 
+      <span style="color:#ffaa00;">⚠️ MONITORING (300-699):</span> Building trust | 
+      <span style="color:#ff4444;">🚫 SUSPICIOUS (&lt;300):</span> Low metrics<br>
+      <span style="color:#888;">Scoring: Rep(0-400) + Stake(0-300) + Accuracy(0-200) + Activity(0-100)</span>
+    </div>
+  </div>
 
   <!-- TERMINAL - Shows 10-15 transactions -->
   <div class="terminal" style="height:240px; flex-shrink:0; margin-top:4px;">
@@ -516,44 +527,144 @@ const liveAgents = [
   { name: "Suspicious_X", address: "5jH...6nQ", rep: -120, staked: 0, vouchesIn: 0, vouchesOut: 0, accuracy: 12, lastActive: "1h ago", status: "danger" }
 ];
 
-function getStatusColor(rep) {
-  return rep > 500 ? '#58C88D' : rep > 0 ? '#ffaa00' : '#ff0040';
+// VERIFICATION ALGORITHM - Calculates status based on multiple factors
+function calculateStatus(agent) {
+  let score = 0;
+  let reasons = [];
+  
+  // REPUTATION SCORE (0-400 points)
+  if (agent.rep >= 500) {
+    score += 400;
+    reasons.push('High rep (500+)');
+  } else if (agent.rep >= 200) {
+    score += 300;
+    reasons.push('Good rep (200+)');
+  } else if (agent.rep >= 50) {
+    score += 150;
+    reasons.push('Building rep (50+)');
+  } else if (agent.rep > 0) {
+    score += 50;
+    reasons.push('New agent (0-50)');
+  } else {
+    score -= 200;
+    reasons.push('Negative rep');
+  }
+  
+  // STAKE AMOUNT (0-300 points)
+  if (agent.staked >= 10) {
+    score += 300;
+    reasons.push('High stake (10+ SOL)');
+  } else if (agent.staked >= 5) {
+    score += 250;
+    reasons.push('Strong stake (5+ SOL)');
+  } else if (agent.staked >= 2) {
+    score += 150;
+    reasons.push('Moderate stake (2+ SOL)');
+  } else if (agent.staked >= 0.5) {
+    score += 50;
+    reasons.push('Low stake (0.5+ SOL)');
+  } else {
+    score -= 50;
+    reasons.push('No/minimal stake');
+  }
+  
+  // ACCURACY (0-200 points)
+  if (agent.accuracy >= 90) {
+    score += 200;
+    reasons.push('Excellent accuracy (90%+)');
+  } else if (agent.accuracy >= 75) {
+    score += 150;
+    reasons.push('Good accuracy (75%+)');
+  } else if (agent.accuracy >= 50) {
+    score += 50;
+    reasons.push('Fair accuracy (50%+)');
+  } else {
+    score -= 100;
+    reasons.push('Poor accuracy (<50%)');
+  }
+  
+  // VOUCH ACTIVITY (0-100 points)
+  const totalVouches = agent.vouchesIn + agent.vouchesOut;
+  if (totalVouches >= 100) {
+    score += 100;
+    reasons.push('Very active (100+ vouches)');
+  } else if (totalVouches >= 50) {
+    score += 75;
+    reasons.push('Active (50+ vouches)');
+  } else if (totalVouches >= 10) {
+    score += 40;
+    reasons.push('Moderate activity (10+ vouches)');
+  } else if (totalVouches >= 1) {
+    score += 10;
+    reasons.push('Minimal activity');
+  } else {
+    score -= 25;
+    reasons.push('No activity');
+  }
+  
+  // DETERMINE STATUS
+  let status, color, text;
+  if (score >= 700) {
+    status = 'verified';
+    color = '#58C88D';
+    text = '✅ VERIFIED';
+  } else if (score >= 300) {
+    status = 'monitoring';
+    color = '#ffaa00';
+    text = '⚠️ MONITORING';
+  } else {
+    status = 'suspicious';
+    color = '#ff4444';
+    text = '🚫 SUSPICIOUS';
+  }
+  
+  return { status, color, text, score, reasons };
 }
 
-function getStatusText(status) {
+function getStatusColor(rep, agent) {
+  if (!agent) return rep > 500 ? '#58C88D' : rep > 0 ? '#ffaa00' : '#ff0040';
+  const result = calculateStatus(agent);
+  return result.color;
+}
+
+function getStatusText(status, agent) {
+  if (agent) {
+    const result = calculateStatus(agent);
+    return result.text;
+  }
   return status === 'safe' ? '✅ VERIFIED' : status === 'warning' ? '⚠️ MONITORING' : '🚫 SUSPICIOUS';
 }
 
 function renderAgents() {
   const list = document.getElementById('agent-list');
   list.innerHTML = liveAgents.map((a, i) => `
-    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:6px 8px; margin:2px 0; background:rgba(88,200,141,0.1); border-left:3px solid ${getStatusColor(a.rep)}; border-radius:0 4px 4px 0; height:40px;">
+    <div class="agent-card ${calculateStatus(a).status === 'suspicious' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:6px 8px; margin:2px 0; background:rgba(88,200,141,0.1); border-left:3px solid ${calculateStatus(a).color}; border-radius:0 4px 4px 0; height:40px;">
       
       <!-- LEFT: Agent Identity -->
       <div style="flex:1; min-width:0;">
         <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
-          <div style="width:10px; height:10px; background:${getStatusColor(a.rep)}; border-radius:50%; flex-shrink:0; box-shadow:0 0 6px ${getStatusColor(a.rep)};"></div>
+          <div style="width:10px; height:10px; background:${calculateStatus(a).color}; border-radius:50%; flex-shrink:0; box-shadow:0 0 6px ${calculateStatus(a).color};"></div>
           <strong style="font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.name}</strong>
           <span style="font-size:9px; color:#636363; font-family:'Courier New',monospace;">${a.address}</span>
         </div>
-        <div style="font-size:10px; color:${getStatusColor(a.rep)}; font-weight:bold;">${getStatusText(a.status)}</div>
+        <div style="font-size:10px; color:${calculateStatus(a).color}; font-weight:bold;">${calculateStatus(a).text} (${calculateStatus(a).score}pts)</div>
       </div>
 
       <!-- RIGHT: Stats Grid -->
       <div style="display:flex; gap:10px; text-align:center; margin-left:10px;">
-        <div style="min-width:42px;">
-          <div style="font-size:16px; font-weight:bold; color:${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
+        <div style="min-width:38px;">
+          <div style="font-size:16px; font-weight:bold; color:${calculateStatus(a).color};" id="rep-${i}">${a.rep}</div>
           <div style="font-size:8px; color:#636363;">REP</div>
         </div>
-        <div style="min-width:42px;">
+        <div style="min-width:38px;">
           <div style="font-size:16px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
           <div style="font-size:8px; color:#636363;">SOL</div>
         </div>
-        <div style="min-width:38px;">
+        <div style="min-width:34px;">
           <div style="font-size:16px; font-weight:bold; color:#58C88D;" id="vin-${i}">${a.vouchesIn}</div>
           <div style="font-size:8px; color:#636363;">IN</div>
         </div>
-        <div style="min-width:38px;">
+        <div style="min-width:34px;">
           <div style="font-size:16px; font-weight:bold; color:#ff4444;" id="vout-${i}">${a.vouchesOut}</div>
           <div style="font-size:8px; color:#636363;">OUT</div>
         </div>
