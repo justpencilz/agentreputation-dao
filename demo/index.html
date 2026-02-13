@@ -249,10 +249,10 @@ h1 {
   <h2 style="margin:8px 0 5px; color:#58C88D; font-size:14px; flex-shrink:0; font-weight:bold;">📊 LIVE AGENT REGISTRY</h2>
   <div id="agent-list" style="flex:1; overflow-y:auto;"></div>
 
-  <!-- TERMINAL -->
-  <div class="terminal" style="height:80px; flex-shrink:0; margin-top:5px;">
-    <div class="terminal-header" style="font-size:10px; padding:3px 8px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
-    <div id="terminal-content" style="font-size:10px; line-height:1.3;">
+  <!-- TERMINAL - Extended to show more transactions -->
+  <div class="terminal" style="height:130px; flex-shrink:0; margin-top:8px;">
+    <div class="terminal-header" style="font-size:12px; padding:5px 10px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
+    <div id="terminal-content" style="font-size:12px; line-height:1.4;">
       <div style="color:#636363;">$ ./monitor --live</div>
     </div>
   </div>
@@ -661,21 +661,21 @@ function addLog() {
   if (l.bg) {
     d.style.background = l.bgc;
     d.style.color = l.col;
-    d.style.padding = '2px 5px';
+    d.style.padding = '3px 6px';
     d.style.fontWeight = 'bold';
     d.style.boxShadow = '0 0 10px ' + l.bgc;
   }
   term.appendChild(d);
-  // Keep exactly 10 transactions visible
-  while (term.children.length > 10) {
+  // Keep 10-15 transactions visible (max 15)
+  while (term.children.length > 15) {
     term.removeChild(term.firstChild);
   }
   term.parentElement.scrollTop = term.parentElement.scrollHeight;
 }
 
-// Initialize with exactly 10 logs
-for (let i = 0; i < 10; i++) setTimeout(addLog, i * 200);
-setInterval(addLog, 2500);
+// Initialize with 12 logs
+for (let i = 0; i < 12; i++) setTimeout(addLog, i * 150);
+setInterval(addLog, 2000);
 </script>
 
 </body>
