@@ -463,29 +463,52 @@ function getStatusText(status) {
 function renderAgents() {
   const list = document.getElementById('agent-list');
   list.innerHTML = liveAgents.map((a, i) => `
-    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="position:relative;">
-      <div style="position:absolute; top:5px; right:5px; width:8px; height:8px; background:${a.status === 'safe' ? '#00ff41' : a.status === 'warning' ? '#ffaa00' : '#ff0040'}; border-radius:50%; animation:pulse 2s infinite;"></div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <strong style="font-size:13px;">${a.name}</strong>
-        <span style="font-size:9px; color:#666; font-family:'Courier New',monospace;">${a.address}</span>
+    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:12px; margin:8px 0; background:rgba(0,255,65,0.05); border-left:3px solid ${getStatusColor(a.rep)};">
+      
+      <!-- LEFT: Agent Identity -->
+      <div style="flex:1;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+          <div style="width:10px; height:10px; background:${getStatusColor(a.rep)}; border-radius:50%; animation:pulse 2s infinite; box-shadow:0 0 8px ${getStatusColor(a.rep)};"></div>
+          <strong style="font-size:14px; color:#fff;">${a.name}</strong>
+        </div>
+        <div style="font-size:9px; color:#666; font-family:'Courier New',monospace;">${a.address}</div>
+        <div style="font-size:10px; color:${getStatusColor(a.rep)}; margin-top:4px; font-weight:bold;">${getStatusText(a.status)}</div>
       </div>
-      <div style="margin:8px 0; display:flex; align-items:center; gap:10px;">
-        <span style="color:${getStatusColor(a.rep)}; font-size:20px; font-weight:bold; text-shadow:0 0 10px ${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</span>
-        <span style="font-size:10px; color:#666;">REP</span>
-        <span id="rep-change-${i}" style="font-size:11px; font-weight:bold;"></span>
+      
+      <!-- RIGHT: Live Stats Grid -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; text-align:center; min-width:140px;">
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:16px; font-weight:bold; color:${getStatusColor(a.rep)}; text-shadow:0 0 8px ${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
+          <div style="font-size:8px; color:#666;">REP</div>
+          <div id="rep-change-${i}" style="font-size:9px; height:12px;"></div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:16px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
+          <div style="font-size:8px; color:#666;">SOL</div>
+          <div style="font-size:9px; color:#00ccff;">💰</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:16px; font-weight:bold; color:#ffd700;" id="acc-${i}">${a.accuracy}</div>
+          <div style="font-size:8px; color:#666;">ACC%</div>
+          <div style="font-size:9px; color:#ffd700;">🎯</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:16px; font-weight:bold; color:#00ff41;" id="vin-${i}">${a.vouchesIn}</div>
+          <div style="font-size:8px; color:#666;">IN</div>
+          <div style="font-size:9px; color:#00ff41;">👍</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:16px; font-weight:bold; color:#ff0040;" id="vout-${i}">${a.vouchesOut}</div>
+          <div style="font-size:8px; color:#666;">OUT</div>
+          <div style="font-size:9px; color:#ff0040;">👎</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
+          <div style="font-size:10px; font-weight:bold; color:#666;" id="active-${i}">${a.lastActive}</div>
+          <div style="font-size:8px; color:#666;">ACTIVE</div>
+          <div style="font-size:9px; color:#00ff41;">●</div>
+        </div>
       </div>
-      <div style="font-size:10px; margin:5px 0; display:grid; grid-template-columns:1fr 1fr; gap:5px;">
-        <div>💰 <span id="stake-${i}">${a.staked.toFixed(1)}</span> SOL</div>
-        <div>🎯 <span id="acc-${i}">${a.accuracy}</span>% acc</div>
-        <div>👍 <span id="vin-${i}">${a.vouchesIn}</span> in</div>
-        <div>👎 <span id="vout-${i}">${a.vouchesOut}</span> out</div>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-        <span style="color:${getStatusColor(a.rep)}; font-size:10px; font-weight:bold;">
-          ${getStatusText(a.status)}
-        </span>
-        <span style="font-size:9px; color:#666;" id="active-${i}">● ${a.lastActive}</span>
-      </div>
+      
     </div>
   `).join('');
 }
