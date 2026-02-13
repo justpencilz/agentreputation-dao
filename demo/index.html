@@ -269,10 +269,17 @@ h1 {
     
     <label style="font-size:9px; margin-top:6px; display:block;">AMOUNT (0.1-5 SOL)</label>
     <div style="display:flex; gap:3px; margin:4px 0;">
-      <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.1</button>
-      <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.5</button>
-      <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">1</button>
-      <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:5px; font-size:9px; background:rgba(255,215,0,0.2); border:1px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5</button>
+      <button onclick="adjustStake(-0.1)" style="padding:5px 8px; font-size:12px; background:#ff3366; border:none; color:#fff; cursor:pointer; font-weight:bold;">-</button>
+      <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.1</button>
+      <button onclick="setStake(0.25)" id="btn-stake-025" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.25</button>
+      <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.5</button>
+      <button onclick="adjustStake(0.1)" style="padding:5px 8px; font-size:12px; background:#58C88D; border:none; color:#000; cursor:pointer; font-weight:bold;">+</button>
+    </div>
+    <div style="display:flex; gap:3px; margin:4px 0;">
+      <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">1</button>
+      <button onclick="setStake(2.5)" id="btn-stake-25" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">2.5</button>
+      <button onclick="setStake(3)" id="btn-stake-3" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">3</button>
+      <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:6px; font-size:10px; background:rgba(255,215,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5 MAX</button>
     </div>
     
     <div style="text-align:center; font-size:14px; color:#58C88D; margin:6px 0; font-weight:bold;" id="current-stake-display">0.1 SOL</div>
@@ -332,19 +339,45 @@ function setStake(val) {
   updateStakeDisplay();
   
   // Update button styles
-  const values = [0.1, 0.25, 0.5, 1, 2.5, 3, 5];
-  values.forEach(v => {
-    const btn = document.getElementById('btn-stake-' + v.toString().replace('.', ''));
+  const btnMapping = {
+    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '1': '1', '2.5': '25', '3': '3', '5': '5'
+  };
+  
+  Object.keys(btnMapping).forEach(v => {
+    const btnId = 'btn-stake-' + btnMapping[v];
+    const btn = document.getElementById(btnId);
     if (btn) {
-      if (Math.abs(v - currentStake) < 0.01) {
+      if (Math.abs(parseFloat(v) - currentStake) < 0.01) {
         btn.style.background = '#58C88D';
         btn.style.color = '#000';
         btn.style.fontWeight = 'bold';
       } else {
-        btn.style.background = v === 5 ? 'rgba(255,215,0,0.2)' : 'rgba(0,255,65,0.1)';
-        btn.style.color = v === 5 ? '#ffd700' : '#58C88D';
+        btn.style.background = v === '5' ? 'rgba(255,215,0,0.2)' : 'rgba(88,200,141,0.1)';
+        btn.style.color = v === '5' ? '#ffd700' : '#58C88D';
         btn.style.fontWeight = 'normal';
       }
+    }
+  });
+  calc();
+}
+
+function adjustStake(delta) {
+  currentStake = Math.min(5, Math.max(0.1, currentStake + delta));
+  updateStakeDisplay();
+  // Update visual only, don't highlight a button since it's custom
+  const btnMapping = {
+    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '1': '1', '2.5': '25', '3': '3', '5': '5'
+  };
+  Object.keys(btnMapping).forEach(v => {
+    const btnId = 'btn-stake-' + btnMapping[v];
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      const isMatch = Math.abs(parseFloat(v) - currentStake) < 0.01;
+      btn.style.background = isMatch ? '#58C88D' : (v === '5' ? 'rgba(255,215,0,0.2)' : 'rgba(88,200,141,0.1)');
+      btn.style.color = isMatch ? '#000' : (v === '5' ? '#ffd700' : '#58C88D');
+      btn.style.fontWeight = isMatch ? 'bold' : 'normal';
     }
   });
   calc();
