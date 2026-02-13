@@ -267,29 +267,53 @@ h1 {
       <button onclick="setTask(10)" id="btn-task-10" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">Critical</button>
     </div>
     
-    <label style="font-size:9px; margin-top:6px; display:block;">AMOUNT (0.1-5 SOL)</label>
-    <div style="display:flex; gap:3px; margin:4px 0;">
-      <button onclick="adjustStake(-0.1)" style="padding:5px 8px; font-size:12px; background:#ff3366; border:none; color:#fff; cursor:pointer; font-weight:bold;">-</button>
-      <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.1</button>
-      <button onclick="setStake(0.25)" id="btn-stake-025" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.25</button>
-      <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:5px; font-size:9px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">0.5</button>
-      <button onclick="adjustStake(0.1)" style="padding:5px 8px; font-size:12px; background:#58C88D; border:none; color:#000; cursor:pointer; font-weight:bold;">+</button>
+    <div style="background:rgba(0,0,0,0.5); padding:10px; border-radius:6px; margin:8px 0; border:1px solid #58C88D;">
+      <div style="text-align:center; font-size:11px; color:#58C88D; margin-bottom:8px; font-weight:bold;">💰 SELECT STAKE AMOUNT</div>
+      
+      <!-- Fine tune row -->
+      <div style="display:flex; gap:4px; margin-bottom:6px;">
+        <button onclick="adjustStake(-0.1)" style="padding:6px 10px; font-size:14px; background:#ff4444; border:none; color:#fff; cursor:pointer; font-weight:bold; border-radius:4px;">−</button>
+        <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.1</button>
+        <button onclick="setStake(0.25)" id="btn-stake-025" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.25</button>
+        <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">0.5</button>
+        <button onclick="adjustStake(0.1)" style="padding:6px 10px; font-size:14px; background:#58C88D; border:none; color:#000; cursor:pointer; font-weight:bold; border-radius:4px;">+</button>
+      </div>
+      
+      <!-- Main amounts row -->
+      <div style="display:flex; gap:4px;">
+        <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:8px; font-size:11px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px; font-weight:bold;">1 SOL</button>
+        <button onclick="setStake(2.5)" id="btn-stake-25" style="flex:1; padding:8px; font-size:11px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px; font-weight:bold;">2.5</button>
+        <button onclick="setStake(3)" id="btn-stake-3" style="flex:1; padding:8px; font-size:11px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px; font-weight:bold;">3</button>
+        <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:8px; font-size:11px; background:rgba(255,200,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; border-radius:4px; font-weight:bold;">5 MAX</button>
+      </div>
     </div>
-    <div style="display:flex; gap:3px; margin:4px 0;">
-      <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">1</button>
-      <button onclick="setStake(2.5)" id="btn-stake-25" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">2.5</button>
-      <button onclick="setStake(3)" id="btn-stake-3" style="flex:1; padding:6px; font-size:10px; background:rgba(88,200,141,0.1); border:1px solid #58C88D; color:#58C88D; cursor:pointer;">3</button>
-      <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:6px; font-size:10px; background:rgba(255,215,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5 MAX</button>
+    
+    <!-- Current stake big display -->
+    <div style="text-align:center; margin:10px 0;">
+      <div style="font-size:28px; font-weight:bold; color:#58C88D;" id="current-stake-display">0.1</div>
+      <div style="font-size:12px; color:#636363;">SOL STAKED</div>
     </div>
     
-    <div style="text-align:center; font-size:14px; color:#58C88D; margin:6px 0; font-weight:bold;" id="current-stake-display">0.1 SOL</div>
+    <!-- Trust Score Section -->
+    <div style="background:rgba(0,0,0,0.5); padding:10px; border-radius:6px; border:1px solid #58C88D;">
+      <div style="text-align:center; font-size:11px; color:#58C88D; margin-bottom:6px; font-weight:bold;">⭐ YOUR TRUST LEVEL</div>
+      <div style="display:flex; gap:4px; margin-bottom:6px;">
+        <button onclick="setReputation(0)" id="btn-rep-new" style="flex:1; padding:6px; font-size:9px; background:#58C88D; border:1px solid #58C88D; color:#000; cursor:pointer; border-radius:4px; font-weight:bold;">NEW (0)</button>
+        <button onclick="setReputation(250)" id="btn-rep-established" style="flex:1; padding:6px; font-size:9px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">EST (250)</button>
+        <button onclick="setReputation(500)" id="btn-rep-trusted" style="flex:1; padding:6px; font-size:9px; background:rgba(88,200,141,0.15); border:1px solid #58C88D; color:#58C88D; cursor:pointer; border-radius:4px;">TRUSTED (500)</button>
+      </div>
+      <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()" style="width:100%; margin:4px 0;">
+      <div style="text-align:center; font-size:10px; color:#636363; margin-top:4px;">
+        <span id="repval">New Agent</span> | <span id="discount-display">0%</span> discount
+      </div>
+    </div>
     
-    <label style="font-size:9px;">YOUR REP</label>
-    <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()" style="margin:4px 0;">
-    <p style="text-align:center; font-size:9px; margin:2px 0;"><span id="repval">0 (New)</span></p>
-    
-    <div style="font-size:20px; text-align:center; color:#58C88D; margin:6px 0; font-weight:bold; text-shadow:0 0 10px #58C88D;">
-      <span id="stake">0.1</span> SOL
+    <!-- Calculation Result -->
+    <div style="background:linear-gradient(135deg, rgba(88,200,141,0.2) 0%, rgba(88,200,141,0.05) 100%); padding:12px; border-radius:6px; margin-top:10px; border:1px solid #58C88D; text-align:center;">
+      <div style="font-size:10px; color:#636363; margin-bottom:4px;">REQUIRED STAKE FOR THIS TASK</div>
+      <div style="font-size:32px; font-weight:bold; color:#58C88D; margin:4px 0;" id="stake">0.1</div>
+      <div style="font-size:12px; color:#58C88D;">SOL</div>
+      <div style="font-size:9px; color:#636363; margin-top:6px;" id="breakdown">Base: 0.1 × Task: 1× | No discount</div>
     </div>
   </div>
   
@@ -313,6 +337,7 @@ h1 {
 <script>
 var currentTask = 1;
 var currentStake = 0.1;
+var currentRep = 0;
 
 function setTask(val) {
   currentTask = val;
@@ -325,12 +350,41 @@ function setTask(val) {
         btn.style.color = '#000';
         btn.style.fontWeight = 'bold';
       } else {
-        btn.style.background = 'rgba(0,255,65,0.1)';
+        btn.style.background = 'rgba(88,200,141,0.1)';
         btn.style.color = '#58C88D';
         btn.style.fontWeight = 'normal';
       }
     }
   });
+  calc();
+}
+
+function setReputation(val) {
+  currentRep = val;
+  document.getElementById('rep').value = val;
+  
+  // Update button styles
+  const levels = [
+    { val: 0, id: 'new', label: 'New Agent' },
+    { val: 250, id: 'established', label: 'Established' },
+    { val: 500, id: 'trusted', label: 'Trusted' }
+  ];
+  
+  levels.forEach(l => {
+    const btn = document.getElementById('btn-rep-' + l.id);
+    if (btn) {
+      if (l.val === val) {
+        btn.style.background = '#58C88D';
+        btn.style.color = '#000';
+        btn.style.fontWeight = 'bold';
+      } else {
+        btn.style.background = 'rgba(88,200,141,0.15)';
+        btn.style.color = '#58C88D';
+        btn.style.fontWeight = 'normal';
+      }
+    }
+  });
+  
   calc();
 }
 
@@ -403,14 +457,64 @@ function calc() {
   var rawStake = base * currentTask * (1 - discount);
   var stake = Math.min(5, rawStake).toFixed(2); // CAP AT 5 SOL
   
-  document.getElementById('stake').textContent = stake;
-  document.getElementById('repval').textContent = rep + (rep === 0 ? ' (New)' : rep > 500 ? ' (Trusted)' : ' (Active)');
-  document.getElementById('breakdown').textContent = 'Min: 0.1 SOL | Task: ' + currentTask + 'x | Discount: ' + (discount*100).toFixed(0) + '% | Max: 5 SOL';
+  // Update displays with new thesis
+  document.getElementById('stake').textContent = currentStake.toFixed(1);
+  
+  // Update reputation label
+  var repLabel = rep === 0 ? 'New Agent' : rep < 250 ? 'Building Rep' : rep < 500 ? 'Established' : 'Trusted';
+  document.getElementById('repval').textContent = repLabel;
+  document.getElementById('discount-display').textContent = discount + '%';
+  
+  // Update breakdown with new thesis
+  var breakdown = '';
+  if (currentStake <= 0.5) {
+    breakdown = 'Entry level | Basic verification';
+  } else if (currentStake <= 2) {
+    breakdown = 'Moderate stake | Shows confidence';
+  } else if (currentStake < 5) {
+    breakdown = 'High stake | Strong trust signal';
+  } else {
+    breakdown = 'Maximum stake | Elite credibility';
+  }
+  if (discount > 0) {
+    breakdown += ' | ' + discount + '% rep discount';
+  }
+  document.getElementById('breakdown').textContent = breakdown;
+}
+
+function adjustStake(delta) {
+  currentStake = Math.min(5, Math.max(0.1, currentStake + delta));
+  updateStakeDisplay();
+  updateStakeButtons();
+  calc();
+}
+
+function updateStakeDisplay() {
+  const display = document.getElementById('current-stake-display');
+  if (display) display.textContent = currentStake.toFixed(1);
+}
+
+function updateStakeButtons() {
+  const btnMapping = {
+    '0.1': '01', '0.25': '025', '0.5': '05', 
+    '1': '1', '2.5': '25', '3': '3', '5': '5'
+  };
+  Object.keys(btnMapping).forEach(v => {
+    const btnId = 'btn-stake-' + btnMapping[v];
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      const isMatch = Math.abs(parseFloat(v) - currentStake) < 0.01;
+      btn.style.background = isMatch ? '#58C88D' : (v === '5' ? 'rgba(255,200,0,0.2)' : 'rgba(88,200,141,0.15)');
+      btn.style.color = isMatch ? '#000' : (v === '5' ? '#ffd700' : '#58C88D');
+      btn.style.fontWeight = isMatch ? 'bold' : 'normal';
+    }
+  });
 }
 
 // Initialize
 setTask(1);
 setStake(0.1);
+setReputation(0);
 
 // Live Agents with realistic data
 const liveAgents = [
