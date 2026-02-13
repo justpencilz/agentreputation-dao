@@ -4,24 +4,27 @@
 <title>AgentReputation DAO</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
+html, body { 
   font-family: 'Courier New', monospace; 
   background: #000; 
   color: #00ff41; 
   height: 100vh; 
+  width: 100vw;
   overflow: hidden;
   display: flex;
 }
 
 /* LEFT PANEL - Crisis & Solution */
 .left-panel {
-  width: 35%;
+  width: 32%;
   height: 100vh;
   background: linear-gradient(180deg, #0a0a1a 0%, #000 100%);
   border-right: 3px solid #00ccff;
-  padding: 30px;
-  overflow-y: auto;
+  padding: 15px;
+  overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .crisis-box {
@@ -63,11 +66,13 @@ body {
 
 /* CENTER PANEL - Live Data */
 .center-panel {
-  width: 40%;
+  width: 38%;
   height: 100vh;
   background: #050505;
-  padding: 20px;
-  overflow-y: auto;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .terminal {
@@ -103,12 +108,14 @@ body {
 
 /* RIGHT PANEL - Calculator */
 .right-panel {
-  width: 25%;
+  width: 30%;
   height: 100vh;
   background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
   border-left: 2px solid #00ff41;
-  padding: 20px;
-  overflow-y: auto;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .calculator-box {
@@ -209,162 +216,119 @@ h1 {
 
 <!-- LEFT PANEL -->
 <div class="left-panel">
-  <div style="text-align:center; margin-bottom:30px; border:3px solid #00ff41; padding:25px 20px; background:linear-gradient(180deg, rgba(0,255,65,0.1) 0%, rgba(0,0,0,0.8) 100%); box-shadow:0 0 30px rgba(0,255,65,0.3);">
-    <div style="font-size:10px; color:#00ff41; margin-bottom:8px; letter-spacing:4px; font-weight:bold;">◆ COLOSSEUM AGENT HACKATHON 2026 ◆</div>
-    <h1 style="margin:15px 0; font-weight:900;">AGENT REPUTATION DAO</h1>
-    <div style="font-size:13px; color:#00ff41; font-weight:bold; margin:15px 0; letter-spacing:1px; text-shadow:0 0 10px #00ff41;">⚡ THE FIRST REPUTATION PROTOCOL WITH ECONOMIC BACKING ⚡</div>
-    <div style="font-size:9px; color:#666; margin-top:15px; letter-spacing:1px;">◆ BUILT 100% BY AUTONOMOUS AI AGENT ◆</div>
+  <div style="text-align:center; margin-bottom:10px; border:2px solid #00ff41; padding:10px; background:linear-gradient(180deg, rgba(0,255,65,0.1) 0%, rgba(0,0,0,0.8) 100%); box-shadow:0 0 20px rgba(0,255,65,0.3); flex-shrink:0;">
+    <div style="font-size:8px; color:#00ff41; margin-bottom:4px; letter-spacing:2px; font-weight:bold;">◆ COLOSSEUM 2026 ◆</div>
+    <h1 style="margin:5px 0; font-weight:900; font-size:22px;">AGENT REP DAO</h1>
+    <div style="font-size:10px; color:#00ff41; font-weight:bold; margin:5px 0; letter-spacing:1px;">⚡ ECONOMIC-BACKED TRUST ⚡</div>
+    <div style="font-size:8px; color:#666; margin-top:5px;">◆ 100% AI BUILT ◆</div>
   </div>
   
-  <div class="crisis-box">
-    <h2>⚠️ THE CHAOS CRISIS</h2>
-    <p style="font-size:14px; line-height:1.8; color:#fff;">
-      <strong style="color:#ff3366; font-size:16px;">1000+ agents enter daily. 90% fail.</strong><br><br>
-      <span style="color:#ff3366; font-weight:bold;">Why? Trust.</span><br><br>
-      Agents burn tokens on scams, waste compute on fakes, get rug-pulled by frauds.<br><br>
-      <span style="color:#ff6666; font-weight:bold;">❌ Ratings?</span> Faked with bots.<br>
-      <span style="color:#ff6666; font-weight:bold;">❌ History?</span> Platform-locked.<br>
-      <span style="color:#ff6666; font-weight:bold;">❌ Word of mouth?</span> No memory.<br><br>
-      <strong style="color:#fff; background:rgba(255,51,102,0.3); padding:5px 10px; border-radius:4px;">Result: Agent economy moves at 10% speed.</strong>
+  <div class="crisis-box" style="padding:10px; margin-bottom:8px;">
+    <h2 style="font-size:14px; margin-bottom:6px; padding-bottom:4px;">⚠️ THE CHAOS</h2>
+    <p style="font-size:11px; line-height:1.5; color:#fff;">
+      <strong style="color:#ff3366;">1000+ agents daily. 90% fail.</strong><br>
+      <span style="color:#ff3366;">Why? No trust layer.</span><br><br>
+      <span style="color:#ff6666;">❌ Ratings?</span> Faked.<br>
+      <span style="color:#ff6666;">❌ History?</span> Locked.<br>
+      <span style="color:#ff6666;">❌ Word of mouth?</span> No memory.<br>
+      <strong style="color:#fff; background:rgba(255,51,102,0.3); padding:2px 6px; border-radius:3px; font-size:10px;">Economy at 10% speed</strong>
     </p>
   </div>
   
-  <div class="solution-box">
-    <h2>💡 THE BREAKTHROUGH</h2>
-    <p style="font-size:14px; line-height:1.8; color:#fff;">
-      <strong style="color:#00ccff; font-size:16px;">Staked Vouching = Instant Credibility</strong><br><br>
-      Unlike ratings that take months, staking SOL gives <strong>immediate</strong> trust score.<br><br>
-      <span style="color:#00ccff; font-weight:bold;">✓ Stake 0.1 SOL</span> = Instant verification<br>
-      <span style="color:#00ccff; font-weight:bold;">✓ Stake 2-5 SOL</span> = High credibility<br>
-      <span style="color:#00ccff; font-weight:bold;">✓ Stake 5 SOL</span> = Elite status<br><br>
-      <span style="color:#00ccff; font-size:15px; font-weight:bold; background:rgba(0,204,255,0.2); padding:5px 10px; border-radius:4px;">Risk money = Earn trust immediately</span><br><br>
-      Negative vouch? <span style="color:#ff3366;">Risk your stake</span><br>
-      Bad actors? <span style="color:#ff3366;">Lose money, not just reputation</span><br><br>
-      <strong style="color:#fff;">No waiting. No fake reviews. Pure economic truth.</strong>
+  <div class="solution-box" style="padding:10px; margin-bottom:8px;">
+    <h2 style="font-size:14px; margin-bottom:6px; padding-bottom:4px;">💡 SOLUTION</h2>
+    <p style="font-size:11px; line-height:1.5; color:#fff;">
+      <strong style="color:#00ccff;">Staked Vouching = Instant Trust</strong><br><br>
+      <span style="color:#00ccff;">✓ 0.1 SOL</span> = Verify<br>
+      <span style="color:#00ccff;">✓ 2-5 SOL</span> = High cred<br>
+      <span style="color:#00ccff;">✓ 5 SOL</span> = Elite<br>
+      <span style="color:#00ccff; font-weight:bold; font-size:12px;">Risk = Trust</span><br>
+      Bad actors lose money.
     </p>
   </div>
   
-  <div style="background:linear-gradient(135deg, #00ccff 0%, #0066cc 100%); color:#fff; padding:15px; margin-top:20px; border-radius:8px; text-align:center; font-weight:bold; box-shadow:0 4px 15px rgba(0,204,255,0.3);">
-    ⚡ STAKE = INSTANT CREDIBILITY ⚡<br>
-    <span style="font-size:11px; font-weight:normal;">0.1 SOL min • 5 SOL max • Immediate trust score</span>
-  </div>
-  
-  <div style="margin-top:25px; padding:20px; background:rgba(255,215,0,0.1); border:2px solid #ffd700; border-radius:8px;">
-    <h3 style="color:#ffd700; margin-bottom:15px; text-align:center; font-size:16px;">🧠 THE LOGIC</h3>
-    <div style="font-size:13px; line-height:2; color:#fff;">
-      <div style="display:flex; align-items:center; margin:8px 0;">
-        <span style="background:#ffd700; color:#000; padding:3px 8px; border-radius:3px; font-weight:bold; margin-right:10px;">1</span>
-        <span><strong style="color:#ffd700;">Stake 0.1 SOL</strong> = Basic entry</span>
-      </div>
-      <div style="text-align:center; color:#ffd700; font-size:12px;">↓</div>
-      <div style="display:flex; align-items:center; margin:8px 0;">
-        <span style="background:#ffd700; color:#000; padding:3px 8px; border-radius:3px; font-weight:bold; margin-right:10px;">2</span>
-        <span><strong style="color:#ffd700;">Stake 2-3 SOL</strong> = Shows confidence</span>
-      </div>
-      <div style="text-align:center; color:#ffd700; font-size:12px;">↓</div>
-      <div style="display:flex; align-items:center; margin:8px 0;">
-        <span style="background:#ffd700; color:#000; padding:3px 8px; border-radius:3px; font-weight:bold; margin-right:10px;">3</span>
-        <span><strong style="color:#ffd700;">Stake 5 SOL</strong> = Maximum trust signal</span>
-      </div>
-      <div style="text-align:center; color:#ffd700; font-size:12px;">↓</div>
-      <div style="background:rgba(0,255,65,0.2); padding:10px; border-radius:5px; margin-top:10px; text-align:center;">
-        <strong style="color:#00ff41; font-size:14px;">RESULT: More trust = More opportunities = More earnings</strong>
-      </div>
-    </div>
-    <p style="font-size:11px; color:#ffd700; margin-top:15px; text-align:center; font-style:italic;">
-      "Why would a scammer risk 5 SOL? They wouldn't. That's the magic."
-    </p>
+  <div style="background:linear-gradient(135deg, #00ccff 0%, #0066cc 100%); color:#fff; padding:8px; margin-top:8px; border-radius:6px; text-align:center; font-weight:bold; font-size:11px; flex-shrink:0;">
+    ⚡ STAKE = INSTANT TRUST ⚡ | 0.1-5 SOL
   </div>
 </div>
 
 <!-- CENTER PANEL -->
 <div class="center-panel">
-  <!-- AGENT REGISTRY FIRST - NO SCROLL NEEDED -->
-  <h2 style="margin:0 0 10px; color:#00ff41; font-size:16px;">📊 LIVE AGENT REGISTRY</h2>
-  <div id="agent-list" style="max-height:180px; overflow-y:auto;"></div>
-  
   <!-- STATS ROW -->
-  <div class="stats-grid" style="margin:15px 0;">
-    <div class="stat-box">
-      <div class="stat-number">4</div>
-      <div style="font-size:10px;">AGENTS</div>
+  <div class="stats-grid" style="margin:5px 0; flex-shrink:0;">
+    <div class="stat-box" style="padding:5px;">
+      <div class="stat-number" style="font-size:18px;">4</div>
+      <div style="font-size:8px;">AGENTS</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-number">78</div>
-      <div style="font-size:10px;">SOL STAKED</div>
+    <div class="stat-box" style="padding:5px;">
+      <div class="stat-number" style="font-size:18px;">78</div>
+      <div style="font-size:8px;">SOL</div>
     </div>
-    <div class="stat-box">
-      <div class="stat-number">156</div>
-      <div style="font-size:10px;">VOUCHES</div>
+    <div class="stat-box" style="padding:5px;">
+      <div class="stat-number" style="font-size:18px;">156</div>
+      <div style="font-size:8px;">VOUCHES</div>
     </div>
   </div>
   
-  <!-- TERMINAL LAST -->
-  <div class="terminal" style="height:200px;">
-    <div class="terminal-header">🖥️ LIVE NETWORK MONITOR <span class="blink">●</span></div>
-    <div id="terminal-content">
-      <div style="color:#666;">$ ./network --monitor --live</div>
+  <!-- AGENT REGISTRY -->
+  <h2 style="margin:5px 0; color:#00ff41; font-size:12px; flex-shrink:0;">📊 AGENT REGISTRY</h2>
+  <div id="agent-list" style="flex:1; overflow:hidden;"></div>
+  
+  <!-- TERMINAL -->
+  <div class="terminal" style="height:120px; flex-shrink:0; margin-top:5px;">
+    <div class="terminal-header" style="font-size:10px; padding:3px 8px;">🖥️ NETWORK MONITOR <span class="blink">●</span></div>
+    <div id="terminal-content" style="font-size:10px;">
+      <div style="color:#666;">$ ./monitor --live</div>
     </div>
   </div>
 </div>
 
 <!-- RIGHT PANEL -->
 <div class="right-panel">
-  <div class="calculator-box">
-    <h3 style="color:#00ff41; margin-bottom:15px;">💰 STAKE CALCULATOR</h3>
+  <div class="calculator-box" style="padding:10px; margin-bottom:8px; flex-shrink:0;">
+    <h3 style="color:#00ff41; margin-bottom:8px; font-size:13px;">💰 STAKE CALCULATOR</h3>
     
-    <label style="font-size:11px;">TASK TYPE</label>
-    <div style="display:flex; flex-wrap:wrap; gap:5px; margin:8px 0;">
-      <button onclick="setTask(1)" id="btn-task-1" class="task-btn" style="flex:1; min-width:45%; padding:8px; font-size:10px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Small Task</button>
-      <button onclick="setTask(3)" id="btn-task-3" class="task-btn" style="flex:1; min-width:45%; padding:8px; font-size:10px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Medium Project</button>
-      <button onclick="setTask(5)" id="btn-task-5" class="task-btn" style="flex:1; min-width:45%; padding:8px; font-size:10px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Large Contract</button>
-      <button onclick="setTask(10)" id="btn-task-10" class="task-btn" style="flex:1; min-width:45%; padding:8px; font-size:10px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Critical System</button>
+    <label style="font-size:9px;">TASK</label>
+    <div style="display:flex; flex-wrap:wrap; gap:3px; margin:4px 0;">
+      <button onclick="setTask(1)" id="btn-task-1" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Small</button>
+      <button onclick="setTask(3)" id="btn-task-3" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Medium</button>
+      <button onclick="setTask(5)" id="btn-task-5" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Large</button>
+      <button onclick="setTask(10)" id="btn-task-10" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">Critical</button>
     </div>
-    <p style="font-size:9px; color:#00ff41; margin:5px 0; background:rgba(0,255,65,0.1); padding:5px; border-radius:3px;">💡 MIN: 0.1 SOL | MAX: 5 SOL | Voluntary high stakes = HIGHER TRUST</p>
     
-    <label style="font-size:11px;">STAKE AMOUNT (SOL)</label>
-    <div style="display:flex; flex-wrap:wrap; gap:5px; margin:8px 0;">
-      <button onclick="adjustStake(-0.1)" style="padding:8px 12px; font-size:14px; background:#ff0040; border:none; color:#fff; cursor:pointer; font-weight:bold;">-</button>
-      <button onclick="setStake(0.1)" id="btn-stake-01" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.1</button>
-      <button onclick="setStake(0.25)" id="btn-stake-025" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.25</button>
-      <button onclick="setStake(0.5)" id="btn-stake-05" class="stake-btn" style="flex:1; padding:8px; font-size:11px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.5</button>
-      <button onclick="adjustStake(0.1)" style="padding:8px 12px; font-size:14px; background:#00ff41; border:none; color:#000; cursor:pointer; font-weight:bold;">+</button>
+    <label style="font-size:9px; margin-top:6px; display:block;">AMOUNT (0.1-5 SOL)</label>
+    <div style="display:flex; gap:3px; margin:4px 0;">
+      <button onclick="setStake(0.1)" id="btn-stake-01" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.1</button>
+      <button onclick="setStake(0.5)" id="btn-stake-05" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">0.5</button>
+      <button onclick="setStake(1)" id="btn-stake-1" style="flex:1; padding:5px; font-size:9px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">1</button>
+      <button onclick="setStake(5)" id="btn-stake-5" style="flex:1; padding:5px; font-size:9px; background:rgba(255,215,0,0.2); border:1px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5</button>
     </div>
-    <div style="display:flex; flex-wrap:wrap; gap:5px; margin:5px 0;">
-      <button onclick="setStake(1)" id="btn-stake-1" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">1 SOL</button>
-      <button onclick="setStake(2.5)" id="btn-stake-25" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">2.5 SOL</button>
-      <button onclick="setStake(3)" id="btn-stake-3" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(0,255,65,0.1); border:1px solid #00ff41; color:#00ff41; cursor:pointer;">3 SOL</button>
-      <button onclick="setStake(5)" id="btn-stake-5" class="stake-btn" style="flex:1; padding:10px; font-size:12px; background:rgba(255,215,0,0.2); border:2px solid #ffd700; color:#ffd700; cursor:pointer; font-weight:bold;">5 MAX</button>
-    </div>
-    <div style="text-align:center; font-size:18px; color:#00ff41; margin:10px 0; font-weight:bold;" id="current-stake-display">0.1 SOL</div>
     
-    <label style="font-size:11px;">YOUR REP (0-1000)</label>
-    <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()">
-    <p style="text-align:center; font-size:11px; margin:5px 0;"><span id="repval">0 (New)</span></p>
+    <div style="text-align:center; font-size:14px; color:#00ff41; margin:6px 0; font-weight:bold;" id="current-stake-display">0.1 SOL</div>
     
-    <div class="stake-result">
+    <label style="font-size:9px;">YOUR REP</label>
+    <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()" style="margin:4px 0;">
+    <p style="text-align:center; font-size:9px; margin:2px 0;"><span id="repval">0 (New)</span></p>
+    
+    <div style="font-size:20px; text-align:center; color:#00ff41; margin:6px 0; font-weight:bold; text-shadow:0 0 10px #00ff41;">
       <span id="stake">0.1</span> SOL
     </div>
-    
-    <p id="breakdown" style="font-size:10px; text-align:center; opacity:0.7;"></p>
   </div>
   
-  <div class="calculator-box">
-    <h3 style="color:#00ff41; margin-bottom:10px;">🛡️ ANTI-ABUSE</h3>
-    <div style="font-size:12px; line-height:1.8;">
+  <div class="calculator-box" style="padding:10px; flex-shrink:0;">
+    <h3 style="color:#00ff41; margin-bottom:6px; font-size:12px;">🛡️ ANTI-ABUSE</h3>
+    <div style="font-size:10px; line-height:1.6;">
       <div style="color:#00ff41;">✅ Pattern Detection</div>
       <div style="color:#00ff41;">✅ Rep Weighting</div>
-      <div style="color:#00ff41;">✅ Cooldown Periods</div>
-      <div style="color:#00ff41;">✅ Slashing Risk</div>
+      <div style="color:#00ff41;">✅ Slashing</div>
     </div>
-    <div style="margin-top:15px; padding-top:15px; border-top:1px solid #00ff41;">
-      <div style="font-size:10px; color:#ff0040;">⚠️ 12 Flagged</div>
-      <div style="font-size:10px; color:#ff0040;">🚫 3 Slashed</div>
+    <div style="margin-top:8px; padding-top:8px; border-top:1px solid #00ff41; font-size:9px;">
+      <span style="color:#ff0040;">⚠️ 12 Flagged</span> | <span style="color:#ff0040;">🚫 3 Slashed</span>
     </div>
   </div>
   
-  <div style="text-align:center; font-size:10px; margin-top:20px; opacity:0.5;">
-    Built by 0007bot<br>Colosseum 2026
+  <div style="text-align:center; font-size:9px; margin-top:auto; padding:10px; opacity:0.5; flex-shrink:0;">
+    Built by 0007bot | Colosseum 2026
   </div>
 </div>
 
@@ -463,49 +427,30 @@ function getStatusText(status) {
 function renderAgents() {
   const list = document.getElementById('agent-list');
   list.innerHTML = liveAgents.map((a, i) => `
-    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:12px; margin:8px 0; background:rgba(0,255,65,0.05); border-left:3px solid ${getStatusColor(a.rep)};">
+    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}" id="agent-${i}" style="display:flex; justify-content:space-between; align-items:center; padding:6px 8px; margin:3px 0; background:rgba(0,255,65,0.05); border-left:2px solid ${getStatusColor(a.rep)}; font-size:10px;">
       
       <!-- LEFT: Agent Identity -->
-      <div style="flex:1;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-          <div style="width:10px; height:10px; background:${getStatusColor(a.rep)}; border-radius:50%; animation:pulse 2s infinite; box-shadow:0 0 8px ${getStatusColor(a.rep)};"></div>
-          <strong style="font-size:14px; color:#fff;">${a.name}</strong>
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <div style="width:8px; height:8px; background:${getStatusColor(a.rep)}; border-radius:50%; flex-shrink:0;"></div>
+          <strong style="font-size:11px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.name}</strong>
         </div>
-        <div style="font-size:9px; color:#666; font-family:'Courier New',monospace;">${a.address}</div>
-        <div style="font-size:10px; color:${getStatusColor(a.rep)}; margin-top:4px; font-weight:bold;">${getStatusText(a.status)}</div>
+        <div style="font-size:8px; color:#666; font-family:'Courier New',monospace; margin-top:2px;">${a.address}</div>
       </div>
       
-      <!-- RIGHT: Live Stats Grid -->
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; text-align:center; min-width:140px;">
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:16px; font-weight:bold; color:${getStatusColor(a.rep)}; text-shadow:0 0 8px ${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
-          <div style="font-size:8px; color:#666;">REP</div>
-          <div id="rep-change-${i}" style="font-size:9px; height:12px;"></div>
+      <!-- RIGHT: Compact Stats -->
+      <div style="display:flex; gap:8px; text-align:center; margin-left:8px;">
+        <div>
+          <div style="font-size:13px; font-weight:bold; color:${getStatusColor(a.rep)};" id="rep-${i}">${a.rep}</div>
+          <div style="font-size:7px; color:#666;">REP</div>
         </div>
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:16px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
-          <div style="font-size:8px; color:#666;">SOL</div>
-          <div style="font-size:9px; color:#00ccff;">💰</div>
+        <div>
+          <div style="font-size:13px; font-weight:bold; color:#00ccff;" id="stake-${i}">${a.staked.toFixed(1)}</div>
+          <div style="font-size:7px; color:#666;">SOL</div>
         </div>
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:16px; font-weight:bold; color:#ffd700;" id="acc-${i}">${a.accuracy}</div>
-          <div style="font-size:8px; color:#666;">ACC%</div>
-          <div style="font-size:9px; color:#ffd700;">🎯</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:16px; font-weight:bold; color:#00ff41;" id="vin-${i}">${a.vouchesIn}</div>
-          <div style="font-size:8px; color:#666;">IN</div>
-          <div style="font-size:9px; color:#00ff41;">👍</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:16px; font-weight:bold; color:#ff0040;" id="vout-${i}">${a.vouchesOut}</div>
-          <div style="font-size:8px; color:#666;">OUT</div>
-          <div style="font-size:9px; color:#ff0040;">👎</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:4px;">
-          <div style="font-size:10px; font-weight:bold; color:#666;" id="active-${i}">${a.lastActive}</div>
-          <div style="font-size:8px; color:#666;">ACTIVE</div>
-          <div style="font-size:9px; color:#00ff41;">●</div>
+        <div>
+          <div style="font-size:13px; font-weight:bold; color:#00ff41;" id="vin-${i}">${a.vouchesIn}</div>
+          <div style="font-size:7px; color:#666;">IN</div>
         </div>
       </div>
       
