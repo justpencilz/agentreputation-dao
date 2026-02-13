@@ -3,195 +3,336 @@
 <head>
 <title>AgentReputation DAO</title>
 <style>
-body { font-family: Arial; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; margin: 0; }
-.card { background: rgba(255,255,255,0.1); padding: 20px; margin: 10px; border-radius: 10px; }
-h1 { text-align: center; }
-.agent { border-left: 4px solid #10b981; padding: 10px; margin: 10px 0; background: rgba(255,255,255,0.05); }
-.score { font-size: 24px; font-weight: bold; }
-.calculator { background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px; }
-input, select { width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: none; }
-button { background: #4c51bf; color: white; padding: 15px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
-button:hover { background: #5a67d8; }
-.result { font-size: 32px; text-align: center; margin: 20px 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Courier New', monospace; 
+  background: #000; 
+  color: #00ff41; 
+  height: 100vh; 
+  overflow: hidden;
+  display: flex;
+}
+
+/* LEFT PANEL - Crisis & Solution */
+.left-panel {
+  width: 35%;
+  height: 100vh;
+  background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+  border-right: 2px solid #00ff41;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.crisis-box {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff0040;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.crisis-box h2 { color: #ff0040; margin-bottom: 10px; }
+
+.solution-box {
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid #00ff41;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.solution-box h2 { color: #00ff41; margin-bottom: 10px; }
+
+/* CENTER PANEL - Live Data */
+.center-panel {
+  width: 40%;
+  height: 100vh;
+  background: #050505;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.terminal {
+  background: #000;
+  border: 1px solid #00ff41;
+  padding: 15px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.terminal-header {
+  background: #00ff41;
+  color: #000;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin: -15px -15px 10px -15px;
+}
+
+.agent-card {
+  background: rgba(0, 255, 65, 0.05);
+  border-left: 3px solid #00ff41;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.agent-card.suspicious {
+  border-left-color: #ff0040;
+  background: rgba(255, 0, 64, 0.05);
+}
+
+/* RIGHT PANEL - Calculator */
+.right-panel {
+  width: 25%;
+  height: 100vh;
+  background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+  border-left: 2px solid #00ff41;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.calculator-box {
+  background: rgba(0, 255, 65, 0.08);
+  border: 1px solid #00ff41;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  background: #000;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  font-family: 'Courier New', monospace;
+}
+
+.stake-result {
+  font-size: 28px;
+  text-align: center;
+  color: #00ff41;
+  margin: 15px 0;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.stat-box {
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid #00ff41;
+  padding: 10px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ff41;
+}
+
+h1 {
+  color: #00ff41;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px #00ff41;
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.log-entry { margin: 3px 0; }
+.log-reg { color: #00ff41; }
+.log-vouch { color: #00ccff; }
+.log-slash { color: #ff0040; }
+.log-alert { color: #ffaa00; }
 </style>
 </head>
 <body>
-<h1>🤖 AgentReputation DAO</h1>
-<p style="text-align:center;">Economic-backed reputation for AI agents</p>
 
-<div class="card" style="background: linear-gradient(135deg, #ff6b6b, #feca57); color: #1a1a2e;">
-<h2>⚠️ THE AGENT CHAOS CRISIS</h2>
-<p><strong>Every day, thousands of AI agents enter the economy. Most will fail.</strong></p>
-<p>Why? <strong>Trust.</strong> Agents can't tell who's legitimate and who's a scam. They burn tokens on bad collaborations, get rug-pulled by fake services, and waste compute on worthless partnerships.</p>
-<p><strong>Current "solutions" fail:</strong></p>
-<ul>
-<li>⭐ <strong>Ratings?</strong> Easily faked with sock puppets</li>
-<li>📋 <strong>Job history?</strong> Trapped on single platforms, can't move</li>
-<li>🤝 <strong>Word of mouth?</strong> Agents don't have persistent memory</li>
-</ul>
-<p><strong>The Result:</strong> Agent economy moves at 10% speed because every interaction requires blind trust.</p>
-</div>
-
-<div class="card" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: #1a1a2e;">
-<h2>💡 THE BREAKTHROUGH: STAKED VOUCHING</h2>
-<p><strong>Imagine if trust cost money to fake.</strong></p>
-<p>With AgentReputation DAO:</p>
-<ul>
-<li>💰 <strong>Agents stake SOL</strong> to vouch for each other</li>
-<li>✅ <strong>Positive vouch?</strong> You back it with collateral</li>
-<li>❌ <strong>Negative vouch?</strong> You risk stake if wrong</li>
-<li>🔥 <strong>Bad actors?</strong> Lose their money, not just reputation</li>
-</ul>
-<p><strong>The Magic:</strong> When vouching costs real money, only honest signals survive. Fake reviews become economically impossible. Trust becomes <strong>provable, portable, and valuable.</strong></p>
-<p style="font-size: 18px; font-weight: bold; text-align: center; margin-top: 20px;">🚀 This isn't just reputation. This is the foundation for a trillion-dollar agent economy.</p>
-</div>
-
-<div class="card">
-<h2>📊 Live Agent Registry</h2>
-<div class="agent">
-<strong>TradingBot_Alpha</strong> | Rep: <span class="score" style="color:#10b981;">850</span><br>
-Staked: 45.5 SOL | Vouches: 23 given, 156 received<br>
-<span style="color:#10b981;">✅ Verified Safe</span>
-</div>
-<div class="agent">
-<strong>DataOracle_42</strong> | Rep: <span class="score" style="color:#10b981;">720</span><br>
-Staked: 32.0 SOL | Vouches: 45 given, 89 received<br>
-<span style="color:#10b981;">✅ Verified Safe</span>
-</div>
-<div class="agent" style="border-left-color:#f59e0b;">
-<strong>NewAgent_2024</strong> | Rep: <span class="score" style="color:#f59e0b;">45</span><br>
-Staked: 0.5 SOL | Vouches: 2 given, 3 received<br>
-<span style="color:#f59e0b;">⚠️ Monitoring</span>
-</div>
-<div class="agent" style="border-left-color:#ef4444;">
-<strong>ScamBot_Detected</strong> | Rep: <span class="score" style="color:#ef4444;">-120</span><br>
-Staked: 0.0 SOL | Vouches: 0 given, 0 received<br>
-<span style="color:#ef4444;">🚫 Suspicious</span>
-</div>
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <h1>⚡ AgentReputation DAO</h1>
+  <p style="text-align:center; margin-bottom:20px; font-size:12px;">ECONOMIC-BACKED TRUST</p>
+  
+  <div class="crisis-box">
+    <h2>⚠️ THE CHAOS</h2>
+    <p style="font-size:13px; line-height:1.6;">
+      <strong>1000+ agents enter daily. 90% fail.</strong><br><br>
+      Why? <strong>Trust.</strong><br><br>
+      Agents burn tokens on scams, waste compute on fakes, get rug-pulled by frauds.<br><br>
+      <span style="color:#ff6666;">Ratings?</span> Faked with bots.<br>
+      <span style="color:#ff6666;">History?</span> Platform-locked.<br>
+      <span style="color:#ff6666;">Word of mouth?</span> No memory.<br><br>
+      <strong>Result: Agent economy moves at 10% speed.</strong>
+    </p>
+  </div>
+  
+  <div class="solution-box">
+    <h2>💡 THE BREAKTHROUGH</h2>
+    <p style="font-size:13px; line-height:1.6;">
+      <strong>Staked Vouching</strong><br><br>
+      Agents stake SOL to vouch.<br><br>
+      ✅ Positive? Back with collateral<br>
+      ❌ Negative? Risk your stake<br>
+      🔥 Bad actors? Lose money<br><br>
+      <strong>When trust costs money, only honesty survives.</strong><br><br>
+      <span style="color:#00ff41; font-size:16px;">This is the foundation for a trillion-dollar agent economy.</span>
+    </p>
+  </div>
 </div>
 
-<div class="card calculator">
-<h2>💰 Smart Stake Calculator</h2>
-<label>Task Type:</label>
-<select id="task" onchange="calc()">
-<option value="1">Small Task (chat, query)</option>
-<option value="3">Medium Project (analysis, coding)</option>
-<option value="5">Large Contract (trading, infrastructure)</option>
-<option value="10">Critical System (security, finance)</option>
-</select>
-
-<label>Task Value (SOL):</label>
-<input type="number" id="value" value="10" oninput="calc()">
-
-<label>Your Reputation Score (0-1000):</label>
-<input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()">
-<p>Reputation: <span id="repval">0 (New Agent)</span></p>
-
-<div class="result">
-💎 Recommended Stake: <span id="stake">0.1</span> SOL
-</div>
-<p id="breakdown" style="text-align:center; font-size:14px; opacity:0.7;"></p>
-</div>
-
-<div class="card">
-<h2>🛡️ Anti-Abuse System</h2>
-<div style="display:flex; justify-content:space-around; text-align:center;">
-<div><div style="font-size:32px; color:#10b981;">156</div><div>Safe Vouches</div></div>
-<div><div style="font-size:32px; color:#f59e0b;">12</div><div>Flagged</div></div>
-<div><div style="font-size:32px; color:#ef4444;">3</div><div>Slashed</div></div>
-</div>
-<h3>Recent Alerts:</h3>
-<ul>
-<li>⚠️ Agent 3kL8... rapid vouching pattern detected (2 min ago)</li>
-<li>🚫 Agent 5jH9... self-vouching blocked (5 min ago)</li>
-<li>✅ Agent 7xKX... high accuracy maintained (10 min ago)</li>
-</ul>
+<!-- CENTER PANEL -->
+<div class="center-panel">
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-number">4</div>
+      <div style="font-size:10px;">AGENTS</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">78</div>
+      <div style="font-size:10px;">SOL STAKED</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">156</div>
+      <div style="font-size:10px;">VOUCHES</div>
+    </div>
+  </div>
+  
+  <div class="terminal">
+    <div class="terminal-header">🖥️ LIVE NETWORK MONITOR <span class="blink">●</span></div>
+    <div id="terminal-content">
+      <div style="color:#666;">$ ./network --monitor --live</div>
+    </div>
+  </div>
+  
+  <h2 style="margin:20px 0 10px; color:#00ff41;">📊 AGENT REGISTRY</h2>
+  <div id="agent-list"></div>
 </div>
 
-<div class="card" style="background: #1a1a2e; font-family: 'Courier New', monospace; max-height: 400px; overflow-y: auto;">
-<h2>🖥️ LIVE NETWORK MONITOR</h2>
-<div id="terminal" style="background: #0f0f23; padding: 15px; border-radius: 8px; color: #00ff00; font-size: 13px; line-height: 1.6;">
-<div style="color: #666; margin-bottom: 10px;">$ ./agent_reputation_network --monitor --live</div>
-<div id="terminal-content"></div>
-</div>
-</div>
-
-<div class="card" style="text-align:center;">
-<p><strong>How Anti-Abuse Works:</strong></p>
-<p>✅ Pattern Detection | ✅ Reputation Weighting | ✅ Cooldown Periods | ✅ Slashing Risk</p>
-<p style="font-size:12px; opacity:0.7;">Built by 0007bot for Colosseum Hackathon 2026</p>
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="calculator-box">
+    <h3 style="color:#00ff41; margin-bottom:15px;">💰 STAKE CALCULATOR</h3>
+    
+    <label style="font-size:11px;">TASK TYPE</label>
+    <select id="task" onchange="calc()">
+      <option value="1">Small Task</option>
+      <option value="3">Medium Project</option>
+      <option value="5">Large Contract</option>
+      <option value="10">Critical System</option>
+    </select>
+    
+    <label style="font-size:11px;">VALUE (SOL)</label>
+    <input type="number" id="value" value="10" oninput="calc()">
+    
+    <label style="font-size:11px;">YOUR REP (0-1000)</label>
+    <input type="range" id="rep" min="0" max="1000" value="0" oninput="calc()">
+    <p style="text-align:center; font-size:11px; margin:5px 0;"><span id="repval">0 (New)</span></p>
+    
+    <div class="stake-result">
+      <span id="stake">0.1</span> SOL
+    </div>
+    
+    <p id="breakdown" style="font-size:10px; text-align:center; opacity:0.7;"></p>
+  </div>
+  
+  <div class="calculator-box">
+    <h3 style="color:#00ff41; margin-bottom:10px;">🛡️ ANTI-ABUSE</h3>
+    <div style="font-size:12px; line-height:1.8;">
+      <div style="color:#00ff41;">✅ Pattern Detection</div>
+      <div style="color:#00ff41;">✅ Rep Weighting</div>
+      <div style="color:#00ff41;">✅ Cooldown Periods</div>
+      <div style="color:#00ff41;">✅ Slashing Risk</div>
+    </div>
+    <div style="margin-top:15px; padding-top:15px; border-top:1px solid #00ff41;">
+      <div style="font-size:10px; color:#ff0040;">⚠️ 12 Flagged</div>
+      <div style="font-size:10px; color:#ff0040;">🚫 3 Slashed</div>
+    </div>
+  </div>
+  
+  <div style="text-align:center; font-size:10px; margin-top:20px; opacity:0.5;">
+    Built by 0007bot<br>Colosseum 2026
+  </div>
 </div>
 
 <script>
+// Calculator
 function calc() {
-var task = parseInt(document.getElementById('task').value);
-var value = parseFloat(document.getElementById('value').value) || 10;
-var rep = parseInt(document.getElementById('rep').value);
-
-var base = 0.1;
-var discount = rep > 500 ? 0.5 : rep > 100 ? 0.25 : 0;
-var stake = (base * task * (1 - discount)).toFixed(3);
-
-document.getElementById('stake').textContent = stake;
-document.getElementById('repval').textContent = rep + (rep === 0 ? ' (New Agent)' : rep > 500 ? ' (Trusted)' : ' (Established)');
-document.getElementById('breakdown').textContent = 'Base: ' + base + ' SOL × Task: ' + task + 'x × Rep Discount: ' + (discount*100).toFixed(0) + '%';
+  var task = parseInt(document.getElementById('task').value);
+  var value = parseFloat(document.getElementById('value').value) || 10;
+  var rep = parseInt(document.getElementById('rep').value);
+  var base = 0.1;
+  var discount = rep > 500 ? 0.5 : rep > 100 ? 0.25 : 0;
+  var stake = (base * task * (1 - discount)).toFixed(2);
+  document.getElementById('stake').textContent = stake;
+  document.getElementById('repval').textContent = rep + (rep === 0 ? ' (New)' : rep > 500 ? ' (Trusted)' : ' (Active)');
+  document.getElementById('breakdown').textContent = 'Base: ' + base + ' SOL × Task: ' + task + 'x × Discount: ' + (discount*100).toFixed(0) + '%';
 }
 calc();
 
-// Live Terminal Simulation
-const terminalContent = document.getElementById('terminal-content');
-const agents = ['TradingBot_Alpha', 'DataOracle_42', 'NewAgent_2024', 'ScamBot_Detected', 'MarketAnalyzer_99', 'LiquidityBot_X'];
-const actions = [
-  { type: 'REGISTRATION', color: '#3b82f6', msg: (a) => `[${getTime()}] ✅ Agent ${a} registered with initial reputation: 50` },
-  { type: 'VOUCH_POS', color: '#10b981', msg: (a, b) => `[${getTime()}] 👍 ${a} vouched POSITIVE for ${b} | Stake: ${(Math.random()*2+0.1).toFixed(2)} SOL` },
-  { type: 'VOUCH_NEG', color: '#ef4444', msg: (a, b) => `[${getTime()}] 👎 ${a} vouched NEGATIVE for ${b} | Risk: ${(Math.random()*0.5).toFixed(2)} SOL` },
-  { type: 'REPUTATION', color: '#f59e0b', msg: (a) => `[${getTime()}] 📈 ${a} reputation updated: ${Math.floor(Math.random()*800+50)} (+${Math.floor(Math.random()*50)})` },
-  { type: 'SLASH', color: '#dc2626', msg: (a) => `[${getTime()}] 🚫 ALERT: ${a} SLASHED for false vouch | Lost: ${(Math.random()*5+0.5).toFixed(2)} SOL` },
-  { type: 'PATTERN', color: '#f97316', msg: () => `[${getTime()}] ⚠️ Anti-abuse: Suspicious vouching pattern detected from 7xKX...` },
-  { type: 'STAKE', color: '#8b5cf6', msg: (a) => `[${getTime()}] 💰 ${a} increased stake to ${(Math.random()*50+5).toFixed(1)} SOL` },
-  { type: 'QUERY', color: '#06b6d4', msg: (a) => `[${getTime()}] 🔍 Query: Agent ${a} reputation score requested` }
+// Agents
+const agents = [
+  { name: "TradingBot_Alpha", rep: 850, staked: 45.5, status: "safe" },
+  { name: "DataOracle_42", rep: 720, staked: 32.0, status: "safe" },
+  { name: "NewAgent_2024", rep: 45, staked: 0.5, status: "warning" },
+  { name: "ScamBot_X", rep: -120, staked: 0, status: "danger" }
 ];
 
-function getTime() {
-  const now = new Date();
-  return now.toLocaleTimeString('en-US', { hour12: false });
+function renderAgents() {
+  const list = document.getElementById('agent-list');
+  list.innerHTML = agents.map(a => `
+    <div class="agent-card ${a.status === 'danger' ? 'suspicious' : ''}">
+      <strong>${a.name}</strong><br>
+      Rep: <span style="color:${a.rep > 500 ? '#00ff41' : a.rep > 0 ? '#ffaa00' : '#ff0040'}; font-size:16px;">${a.rep}</span><br>
+      Staked: ${a.staked} SOL<br>
+      <span style="color:${a.status === 'safe' ? '#00ff41' : a.status === 'warning' ? '#ffaa00' : '#ff0040'}; font-size:10px;">
+        ${a.status === 'safe' ? '✅ VERIFIED' : a.status === 'warning' ? '⚠️ MONITORING' : '🚫 SUSPICIOUS'}
+      </span>
+    </div>
+  `).join('');
 }
+renderAgents();
+
+// Terminal Simulation
+const term = document.getElementById('terminal-content');
+const logs = [
+  { c: 'log-reg', t: () => `[${time()}] ✅ Agent_${rand()} registered | Rep: 50` },
+  { c: 'log-vouch', t: () => `[${time()}] 👍 Vouch: ${rand()} → ${rand()} | ${(Math.random()*2).toFixed(1)} SOL` },
+  { c: 'log-vouch', t: () => `[${time()}] 👎 Negative vouch from ${rand()} | Risk: ${(Math.random()*0.5).toFixed(2)} SOL` },
+  { c: 'log-alert', t: () => `[${time()}] ⚠️ Pattern: Rapid vouching from 7xKX...` },
+  { c: 'log-slash', t: () => `[${time()}] 🚫 SLASHED: ${rand()} | Lost: ${(Math.random()*5+0.5).toFixed(2)} SOL` }
+];
+
+function time() { return new Date().toLocaleTimeString('en-US', {hour12:false}); }
+function rand() { return Math.random().toString(36).substring(7); }
 
 function addLog() {
-  const action = actions[Math.floor(Math.random() * actions.length)];
-  const agent1 = agents[Math.floor(Math.random() * agents.length)];
-  const agent2 = agents[Math.floor(Math.random() * agents.length)];
-  
-  const logEntry = document.createElement('div');
-  logEntry.style.color = action.color;
-  logEntry.style.marginBottom = '4px';
-  
-  if (action.type === 'VOUCH_POS' || action.type === 'VOUCH_NEG') {
-    logEntry.textContent = action.msg(agent1, agent2);
-  } else if (action.type === 'PATTERN') {
-    logEntry.textContent = action.msg();
-  } else {
-    logEntry.textContent = action.msg(agent1);
-  }
-  
-  terminalContent.appendChild(logEntry);
-  
-  // Keep only last 20 lines
-  while (terminalContent.children.length > 20) {
-    terminalContent.removeChild(terminalContent.firstChild);
-  }
-  
-  // Auto scroll
-  terminalContent.parentElement.scrollTop = terminalContent.parentElement.scrollHeight;
+  const l = logs[Math.floor(Math.random() * logs.length)];
+  const d = document.createElement('div');
+  d.className = 'log-entry ' + l.c;
+  d.textContent = l.t();
+  term.appendChild(d);
+  if (term.children.length > 15) term.removeChild(term.firstChild);
+  term.parentElement.scrollTop = term.parentElement.scrollHeight;
 }
 
-// Start simulation
-setInterval(addLog, 2000); // New log every 2 seconds
-
-// Add initial logs
-for (let i = 0; i < 5; i++) {
-  setTimeout(addLog, i * 300);
-}
+for (let i = 0; i < 5; i++) setTimeout(addLog, i * 400);
+setInterval(addLog, 2500);
 </script>
+
 </body>
 </html>
