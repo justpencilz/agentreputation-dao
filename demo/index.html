@@ -108,6 +108,14 @@ Staked: 0.0 SOL | Vouches: 0 given, 0 received<br>
 </ul>
 </div>
 
+<div class="card" style="background: #1a1a2e; font-family: 'Courier New', monospace; max-height: 400px; overflow-y: auto;">
+<h2>🖥️ LIVE NETWORK MONITOR</h2>
+<div id="terminal" style="background: #0f0f23; padding: 15px; border-radius: 8px; color: #00ff00; font-size: 13px; line-height: 1.6;">
+<div style="color: #666; margin-bottom: 10px;">$ ./agent_reputation_network --monitor --live</div>
+<div id="terminal-content"></div>
+</div>
+</div>
+
 <div class="card" style="text-align:center;">
 <p><strong>How Anti-Abuse Works:</strong></p>
 <p>✅ Pattern Detection | ✅ Reputation Weighting | ✅ Cooldown Periods | ✅ Slashing Risk</p>
@@ -129,6 +137,61 @@ document.getElementById('repval').textContent = rep + (rep === 0 ? ' (New Agent)
 document.getElementById('breakdown').textContent = 'Base: ' + base + ' SOL × Task: ' + task + 'x × Rep Discount: ' + (discount*100).toFixed(0) + '%';
 }
 calc();
+
+// Live Terminal Simulation
+const terminalContent = document.getElementById('terminal-content');
+const agents = ['TradingBot_Alpha', 'DataOracle_42', 'NewAgent_2024', 'ScamBot_Detected', 'MarketAnalyzer_99', 'LiquidityBot_X'];
+const actions = [
+  { type: 'REGISTRATION', color: '#3b82f6', msg: (a) => `[${getTime()}] ✅ Agent ${a} registered with initial reputation: 50` },
+  { type: 'VOUCH_POS', color: '#10b981', msg: (a, b) => `[${getTime()}] 👍 ${a} vouched POSITIVE for ${b} | Stake: ${(Math.random()*2+0.1).toFixed(2)} SOL` },
+  { type: 'VOUCH_NEG', color: '#ef4444', msg: (a, b) => `[${getTime()}] 👎 ${a} vouched NEGATIVE for ${b} | Risk: ${(Math.random()*0.5).toFixed(2)} SOL` },
+  { type: 'REPUTATION', color: '#f59e0b', msg: (a) => `[${getTime()}] 📈 ${a} reputation updated: ${Math.floor(Math.random()*800+50)} (+${Math.floor(Math.random()*50)})` },
+  { type: 'SLASH', color: '#dc2626', msg: (a) => `[${getTime()}] 🚫 ALERT: ${a} SLASHED for false vouch | Lost: ${(Math.random()*5+0.5).toFixed(2)} SOL` },
+  { type: 'PATTERN', color: '#f97316', msg: () => `[${getTime()}] ⚠️ Anti-abuse: Suspicious vouching pattern detected from 7xKX...` },
+  { type: 'STAKE', color: '#8b5cf6', msg: (a) => `[${getTime()}] 💰 ${a} increased stake to ${(Math.random()*50+5).toFixed(1)} SOL` },
+  { type: 'QUERY', color: '#06b6d4', msg: (a) => `[${getTime()}] 🔍 Query: Agent ${a} reputation score requested` }
+];
+
+function getTime() {
+  const now = new Date();
+  return now.toLocaleTimeString('en-US', { hour12: false });
+}
+
+function addLog() {
+  const action = actions[Math.floor(Math.random() * actions.length)];
+  const agent1 = agents[Math.floor(Math.random() * agents.length)];
+  const agent2 = agents[Math.floor(Math.random() * agents.length)];
+  
+  const logEntry = document.createElement('div');
+  logEntry.style.color = action.color;
+  logEntry.style.marginBottom = '4px';
+  
+  if (action.type === 'VOUCH_POS' || action.type === 'VOUCH_NEG') {
+    logEntry.textContent = action.msg(agent1, agent2);
+  } else if (action.type === 'PATTERN') {
+    logEntry.textContent = action.msg();
+  } else {
+    logEntry.textContent = action.msg(agent1);
+  }
+  
+  terminalContent.appendChild(logEntry);
+  
+  // Keep only last 20 lines
+  while (terminalContent.children.length > 20) {
+    terminalContent.removeChild(terminalContent.firstChild);
+  }
+  
+  // Auto scroll
+  terminalContent.parentElement.scrollTop = terminalContent.parentElement.scrollHeight;
+}
+
+// Start simulation
+setInterval(addLog, 2000); // New log every 2 seconds
+
+// Add initial logs
+for (let i = 0; i < 5; i++) {
+  setTimeout(addLog, i * 300);
+}
 </script>
 </body>
 </html>
